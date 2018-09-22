@@ -1,10 +1,10 @@
 <template>
-  <div id="app">
+  <div>
     <v-app dark>
       <v-container fluid>
         <v-layout row>
           <v-flex xs6>
-            Code Editor Component Here
+            <Editor></Editor>
           </v-flex>
           <v-flex xs6>
             <v-layout column>
@@ -23,8 +23,13 @@
 </template>
 
 <script>
+  import Editor from './components/Editor.vue'
+
   export default {
-    name: 'buck-naked'
+    name: 'buck-naked',
+    components: {
+      Editor
+    }
   }
 </script>
 
