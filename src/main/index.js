@@ -25,7 +25,15 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     height: 563,
     useContentSize: true,
-    width: 1000
+    width: 1000,
+    title: 'Buck Naked'
+  })
+
+  /**
+   * Needed to display the title
+   */
+  mainWindow.on('page-title-updated', evt => {
+    evt.preventDefault()
   })
 
   mainWindow.loadURL(winURL)
