@@ -1,7 +1,23 @@
 <template>
   <div id="app">
     <v-app dark>
-      <h1>Hello World!</h1>
+      <v-container fluid>
+        <v-layout row>
+          <v-flex xs6>
+            Code Editor Component Here
+          </v-flex>
+          <v-flex xs6>
+            <v-layout column>
+              <v-flex xs12>
+                Graphics View Component Here
+              </v-flex>
+              <v-flex xs12>
+                Console Output Component Here
+              </v-flex>
+            </v-layout>
+          </v-flex>
+        </v-layout>
+      </v-container>
     </v-app>
   </div>
 </template>
