@@ -15,9 +15,8 @@ textarea {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-
   width: 100%;
   height: 95vh;
+  background-color:#808080;
 }
 </style>
-
