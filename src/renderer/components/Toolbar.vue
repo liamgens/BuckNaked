@@ -1,9 +1,29 @@
 <template>
   <div>
-    <v-btn @click="run" color="success"><v-icon light>play_circle_filled</v-icon></v-btn>
-    <v-btn color="error"><v-icon light>stop</v-icon></v-btn>
-    <v-btn @click="clear" color="warning"><v-icon light>clear</v-icon></v-btn>
-    <v-btn color="blue-grey"><v-icon light>cloud_upload</v-icon></v-btn>
+    <v-tooltip bottom>
+      <v-btn @click="run" color="success" slot="activator">
+        <v-icon light>play_circle_filled</v-icon>
+      </v-btn>
+      <span>Execute Code</span>
+    </v-tooltip>
+    <v-tooltip bottom>
+      <v-btn color="error" slot="activator">
+        <v-icon light>stop</v-icon>
+      </v-btn>
+      <span>Stop Execution</span>
+    </v-tooltip>
+    <v-tooltip bottom>
+      <v-btn @click="clear" color="warning" slot="activator">
+        <v-icon light>clear</v-icon>
+      </v-btn>
+      <span>Clear Console Output</span>
+    </v-tooltip>
+    <v-tooltip bottom>
+      <v-btn color="blue-grey" slot="activator">
+        <v-icon light>cloud_upload</v-icon>
+      </v-btn>
+      <span>Upload File</span>
+    </v-tooltip>
   </div>
 </template>
 
