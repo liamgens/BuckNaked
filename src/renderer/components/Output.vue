@@ -9,7 +9,15 @@
 export default {
   computed: {
     output () {
-      return this.$store.getters.fileContents
+      let fileContents = this.$store.getters.fileContents.split('\n')
+      let output = ''
+      for (var i = 0; i < fileContents.length; i++) {
+        // Remove whitespace to check for an empty or blank line
+        if (!fileContents[i].replace(/\s/g, '').length <= 0) {
+          output += '> ' + fileContents[i] + '\n'
+        }
+      }
+      return output
     }
   }
 }
