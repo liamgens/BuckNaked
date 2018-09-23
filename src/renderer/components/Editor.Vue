@@ -4,13 +4,18 @@
       <textarea v-model="code" id="editor"></textarea>
     </div>
     <div id="lineNumberPanel">
-      <p>1</br>2</br>3</br>4</p>
+      <LineNumbers></LineNumbers>
     </div>
   </div>
 </template>
 
 <script>
+import LineNumbers from './LineNumbers.vue'
+
 export default {
+  components: {
+    LineNumbers
+  },
   computed: {
     code: {
       get () {
@@ -19,6 +24,13 @@ export default {
       set (value) {
         this.$store.commit('editCode', value)
       }
+    },
+    test: function () {
+      let lineNumbers = ''
+      for (let i = 0; i < this.$store.getters.numberOfLines; i++) {
+        lineNumbers += i + 1 + '<br />'
+      }
+      return lineNumbers
     }
   }
 }

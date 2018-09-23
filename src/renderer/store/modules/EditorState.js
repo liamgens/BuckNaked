@@ -1,6 +1,7 @@
 const state = {
   fileContents: '',
-  code: ''
+  code: '',
+  lineCount: 1
 }
 
 const mutations = {
@@ -8,7 +9,9 @@ const mutations = {
     state.fileContents = fileContents
   },
   editCode (state, code) {
+    state.lineCount = code.split('\n').length
     state.code = code
+    console.log(code)
   }
 }
 
@@ -22,7 +25,7 @@ const getters = {
     return state.code
   },
   numberOfLines: () => {
-    return state.fileContents.split('\n').length
+    return state.lineCount
   }
 }
 
