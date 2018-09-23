@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="editorPanel">
-      <textarea v-model="code" id="editor"></textarea>
+      <p v-model="code" id="editor" contenteditable></p>
     </div>
     <div id="lineNumberPanel">
       <LineNumbers></LineNumbers>
@@ -45,7 +45,7 @@ export default {
   height: 100%;
   background-color: #808080;
   outline: none;
-  padding-left: 23px;
+  padding-left: 32px;
   padding-top: 5px;
   white-space: pre;
   overflow-x: scroll;
@@ -59,7 +59,8 @@ export default {
 #lineNumberPanel {
   position: absolute;
   top: 32px;
-  left: 34px;
+  left: 30px;
   color: #ffa500;
+  overflow-y: scroll;
 }
 </style>
