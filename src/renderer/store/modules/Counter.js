@@ -1,5 +1,5 @@
 const state = {
-  fileContents: 'temp contents'
+  fileContents: ''
 }
 
 const mutations = {

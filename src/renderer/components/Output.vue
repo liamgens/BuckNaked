@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div id="outputPanel">
+    <h3>Output</h3>
     <p>{{ output }}</p>
   </div>
 </template>
@@ -15,4 +16,7 @@ export default {
 </script>
 
 <style>
+#outputPanel {
+  white-space: pre-wrap;
+}
 </style>
