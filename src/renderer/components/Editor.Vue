@@ -6,6 +6,7 @@
       <v-btn color="error"><v-icon light>stop</v-icon></v-btn>
       <v-btn color="warning"><v-icon light>clear</v-icon></v-btn>
       <v-btn color="blue-grey"><v-icon light>cloud_upload</v-icon></v-btn>
+      <!-- Under 380px the buttons will wrap to below the window  -->
     </div>
   </div>
 </template>
@@ -31,7 +32,7 @@ export default {
 </script>
 
 <style>
-textarea {
+#editor {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;

@@ -1,7 +1,7 @@
 <template>
   <div id="outputPanel">
     <h3>Output</h3>
-    <p>{{ output }}</p>
+    <div id="outputText">{{ output }}</div>
   </div>
 </template>
 
@@ -26,5 +26,13 @@ export default {
 <style>
 #outputPanel {
   white-space: pre-wrap;
+  height: 59vh;
+}
+#outputText {
+  background-color: #808080;
+  overflow-y: scroll;
+  height: 100%;
+  width: 100%;
+  padding: 5px;
 }
 </style>
