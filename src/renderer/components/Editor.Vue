@@ -2,30 +2,20 @@
   <div id="editorPanel">
     <textarea v-model="code" id="editor"></textarea>
     <div class="text-xs-center">
-      <v-btn @click="run" color="success"><v-icon light>play_circle_filled</v-icon></v-btn>
-      <v-btn color="error"><v-icon light>stop</v-icon></v-btn>
-      <v-btn color="warning"><v-icon light>clear</v-icon></v-btn>
-      <v-btn color="blue-grey"><v-icon light>cloud_upload</v-icon></v-btn>
-      <!-- Under 380px the buttons will wrap to below the window  -->
     </div>
   </div>
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
-
 export default {
-  data: function () {
-    return {
-      code: ''
-    }
-  },
-  methods: {
-    ...mapMutations([
-      'editFileContents'
-    ]),
-    run: function () {
-      this.editFileContents(this.code)
+  computed: {
+    code: {
+      get () {
+        return this.$store.state.code
+      },
+      set (value) {
+        this.$store.commit('editCode', value)
+      }
     }
   }
 }

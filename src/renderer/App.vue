@@ -12,6 +12,9 @@
                 <Graphics></Graphics>
               </v-flex>
               <v-flex xs12>
+                <Toolbar></Toolbar>
+              </v-flex>
+              <v-flex xs12>
                 <Output></Output>
               </v-flex>
             </v-layout>
@@ -26,13 +29,15 @@
   import Editor from './components/Editor.vue'
   import Output from './components/Output.vue'
   import Graphics from './components/Graphics.vue'
+  import Toolbar from './components/Toolbar.vue'
 
   export default {
     name: 'buck-naked',
     components: {
       Editor,
       Output,
-      Graphics
+      Graphics,
+      Toolbar
     }
   }
 </script>
