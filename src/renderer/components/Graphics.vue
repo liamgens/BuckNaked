@@ -20,7 +20,5 @@ export default {}
 
 <style>
 #graphicsPanel {
-  height: 46vh;
 }
-
 </style>
