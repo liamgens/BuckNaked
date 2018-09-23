@@ -1,12 +1,28 @@
 <template>
   <div>
-    <textarea id="editor"></textarea>
+    <v-btn @click="run" color="success"><v-icon light>play_circle_filled</v-icon></v-btn>
+    <v-btn color="error"><v-icon light>stop</v-icon></v-btn>
+    <textarea v-model="code" id="editor"></textarea>
   </div>
 </template>
 
 <script>
-export default {
+import { mapMutations } from 'vuex'
 
+export default {
+  data: function () {
+    return {
+      code: ''
+    }
+  },
+  methods: {
+    ...mapMutations([
+      'editFileContents'
+    ]),
+    run: function () {
+      this.editFileContents(this.code)
+    }
+  }
 }
 </script>
 

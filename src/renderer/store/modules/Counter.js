@@ -1,25 +1,24 @@
 const state = {
-  main: 0
+  fileContents: 'temp contents'
 }
 
 const mutations = {
-  DECREMENT_MAIN_COUNTER (state) {
-    state.main--
-  },
-  INCREMENT_MAIN_COUNTER (state) {
-    state.main++
+  editFileContents (state, fileContents) {
+    state.fileContents = fileContents
   }
 }
 
-const actions = {
-  someAsyncTask ({ commit }) {
-    // do something async
-    commit('INCREMENT_MAIN_COUNTER')
+const actions = {}
+
+const getters = {
+  fileContents: () => {
+    return state.fileContents
   }
 }
 
 export default {
   state,
   mutations,
-  actions
+  actions,
+  getters
 }

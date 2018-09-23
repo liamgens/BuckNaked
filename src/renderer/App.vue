@@ -12,7 +12,7 @@
                 Graphics View Component Here
               </v-flex>
               <v-flex xs12>
-                Console Output Component Here
+                <Output></Output>
               </v-flex>
             </v-layout>
           </v-flex>
@@ -24,11 +24,13 @@
 
 <script>
   import Editor from './components/Editor.vue'
+  import Output from './components/Output.vue'
 
   export default {
     name: 'buck-naked',
     components: {
-      Editor
+      Editor,
+      Output
     }
   }
 </script>
