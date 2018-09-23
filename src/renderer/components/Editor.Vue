@@ -18,5 +18,6 @@ textarea {
   width: 100%;
   height: 95vh;
   background-color:#808080;
+  outline: none;
 }
 </style>
