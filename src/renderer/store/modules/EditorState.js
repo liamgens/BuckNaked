@@ -11,7 +11,6 @@ const mutations = {
   editCode (state, code) {
     state.lineCount = code.split('\n').length
     state.code = code
-    console.log(code)
   }
 }
 
