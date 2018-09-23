@@ -1,8 +1,6 @@
 <template>
   <div id="editorPanel">
     <textarea v-model="code" id="editor"></textarea>
-    <div class="text-xs-center">
-    </div>
   </div>
 </template>
 
