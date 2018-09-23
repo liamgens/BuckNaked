@@ -19,5 +19,8 @@ textarea {
   height: 95vh;
   background-color:#808080;
   outline: none;
+  padding: 5px;
+  white-space: pre;
+  overflow-x: scroll;
 }
 </style>
