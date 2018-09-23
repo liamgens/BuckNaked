@@ -9,7 +9,7 @@
           <v-flex xs6>
             <v-layout column>
               <v-flex xs12>
-                Graphics View Component Here
+                <Graphics></Graphics>
               </v-flex>
               <v-flex xs12>
                 <Output></Output>
@@ -25,12 +25,14 @@
 <script>
   import Editor from './components/Editor.vue'
   import Output from './components/Output.vue'
+  import Graphics from './components/Graphics.vue'
 
   export default {
     name: 'buck-naked',
     components: {
       Editor,
-      Output
+      Output,
+      Graphics
     }
   }
 </script>
