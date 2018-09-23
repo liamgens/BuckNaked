@@ -48,6 +48,6 @@ export default {
   position: absolute;
   top: 32px;
   left: 34px;
-  color: #FFA500;
+  color: #ffa500;
 }
 </style>

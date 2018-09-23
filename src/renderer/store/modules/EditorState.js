@@ -20,6 +20,9 @@ const getters = {
   },
   code: () => {
     return state.code
+  },
+  numberOfLines: () => {
+    return state.fileContents.split('\n').length
   }
 }
 
