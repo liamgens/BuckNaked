@@ -11,8 +11,13 @@ export default {
 </script>
 
 <style>
-#editor {
-  height: 100%;
+textarea {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
   width: 100%;
+  height: 95vh;
 }
 </style>
+
