@@ -2,9 +2,21 @@
 
 > An interpreted language with custom editor and runtime environment
 
+#### Prerequisites
+
+``` bash
+# clone respository
+git clone https://github.com/liamgens/BuckNaked.git
+
+# install package manager npm
+sudo apt-get install -f npm
+
+```
+
 #### Build Setup
 
 ``` bash
+
 # install dependencies
 npm install
 
