@@ -32,6 +32,15 @@ export default {
       }
       return lineNumbers
     }
+  },
+  mounted: function () {
+    var s1 = document.getElementById('editor')
+    var s2 = document.getElementById('lineNumberPanel')
+    function selectScroll1 (e) { s2.scrollTop = s1.scrollTop }
+    function selectScroll2 (e) { s1.scrollTop = s2.scrollTop }
+
+    s1.addEventListener('scroll', selectScroll1, false)
+    s2.addEventListener('scroll', selectScroll2, false)
   }
 }
 </script>
@@ -65,5 +74,6 @@ export default {
   text-align: right;
   display: block;
   width: 30px;
+  overflow: hidden;
 }
 </style>
