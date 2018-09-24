@@ -8,8 +8,14 @@
 # clone respository
 git clone https://github.com/liamgens/BuckNaked.git
 
-# install package manager npm
+```
+Windows users will need to install Node from https://nodejs.org/en/
+``` bash
+# install package manager npm (Ubuntu)
 sudo apt-get install -f npm
+
+# install package manager npm (Mac)
+brew install node
 
 ```
 
