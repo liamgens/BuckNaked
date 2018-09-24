@@ -45,7 +45,7 @@ export default {
   height: 100%;
   background-color: #808080;
   outline: none;
-  padding-left: 32px;
+  padding-left: 37px;
   padding-top: 5px;
   white-space: pre;
   overflow-x: scroll;
@@ -59,7 +59,7 @@ export default {
 #lineNumberPanel {
   position: absolute;
   top: 21px;
-  left: 12px;
+  left: 16px;
   color: #ffa500;
   overflow-y: scroll;
   text-align: right;
