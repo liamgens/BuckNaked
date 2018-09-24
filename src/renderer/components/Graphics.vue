@@ -1,5 +1,5 @@
 <template>
-  <div id="graphicsPanel">
+  <div id="graphicsPanel" class="text-xs-center">
     <p>
       __/\\\\\\\\\\\\\_____/\\\________/\\\__/\\\\____________/\\\\_<br />
       __\/\\\/////////\\\____\/\\\_______\/\\\_\/\\\\\\________/\\\\\\_<br />
@@ -19,6 +19,4 @@ export default {}
 </script>
 
 <style>
-#graphicsPanel {
-}
 </style>

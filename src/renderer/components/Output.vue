@@ -1,6 +1,5 @@
 <template>
   <div id="outputPanel">
-    <h3>Output</h3>
     <div id="outputText">{{ output }}</div>
   </div>
 </template>
@@ -26,7 +25,7 @@ export default {
 <style>
 #outputPanel {
   white-space: pre-wrap;
-  height: calc(100vh - 328px);
+  height: calc(100vh - 283px);
 }
 #outputText {
   background-color: #808080;

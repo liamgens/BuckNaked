@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="text-xs-center">
     <v-tooltip bottom>
       <v-btn @click="run" color="success" slot="activator">
         <v-icon light>play_circle_filled</v-icon>
@@ -7,7 +7,7 @@
       <span>Execute Code</span>
     </v-tooltip>
     <v-tooltip bottom>
-      <v-btn color="error" slot="activator">
+      <v-btn color="error" slot="activator" disabled>
         <v-icon light>stop</v-icon>
       </v-btn>
       <span>Stop Execution</span>
@@ -19,7 +19,7 @@
       <span>Clear Console Output</span>
     </v-tooltip>
     <v-tooltip bottom>
-      <v-btn color="blue-grey" slot="activator">
+      <v-btn color="blue-grey" slot="activator" disabled>
         <v-icon light>cloud_upload</v-icon>
       </v-btn>
       <span>Upload File</span>
