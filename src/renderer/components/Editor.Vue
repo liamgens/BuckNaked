@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="editorPanel">
-      <p v-model="code" id="editor" contenteditable></p>
+      <textarea v-model="code" id="editor" contenteditable></textarea>
     </div>
     <div id="lineNumberPanel">
       <LineNumbers></LineNumbers>
