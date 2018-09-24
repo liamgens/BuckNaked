@@ -1,18 +1,21 @@
 <template>
-  <div id="app">
+  <div>
     <v-app dark>
       <v-container fluid>
         <v-layout row>
           <v-flex xs6>
-            Code Editor Component Here
+            <Editor></Editor>
           </v-flex>
           <v-flex xs6>
             <v-layout column>
               <v-flex xs12>
-                Graphics View Component Here
+                <Graphics></Graphics>
               </v-flex>
               <v-flex xs12>
-                Console Output Component Here
+                <Toolbar></Toolbar>
+              </v-flex>
+              <v-flex xs12>
+                <Output></Output>
               </v-flex>
             </v-layout>
           </v-flex>
@@ -23,8 +26,19 @@
 </template>
 
 <script>
+  import Editor from './components/Editor.vue'
+  import Output from './components/Output.vue'
+  import Graphics from './components/Graphics.vue'
+  import Toolbar from './components/Toolbar.vue'
+
   export default {
-    name: 'buck-naked'
+    name: 'buck-naked',
+    components: {
+      Editor,
+      Output,
+      Graphics,
+      Toolbar
+    }
   }
 </script>
 
