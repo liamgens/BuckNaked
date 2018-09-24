@@ -61,7 +61,7 @@ export default {
 }
 
 #editorPanel {
-  height: calc(100vh - 30px);
+  height: calc(100vh - 35px);
   width: calc(50vw - 30px);
 }
 

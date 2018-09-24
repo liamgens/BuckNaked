@@ -25,7 +25,7 @@ export default {
 <style>
 #outputPanel {
   white-space: pre-wrap;
-  height: calc(100vh - 283px);
+  height: calc(100vh - 288px);
 }
 #outputText {
   background-color: #808080;
