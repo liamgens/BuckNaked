@@ -4,7 +4,7 @@
       <textarea v-model="code" id="editor" contenteditable></textarea>
     </div>
     <div id="lineNumberPanel">
-      <LineNumbers></LineNumbers>
+      <LineNumbers style="text-align: right;"></LineNumbers>
     </div>
   </div>
 </template>
@@ -59,8 +59,11 @@ export default {
 #lineNumberPanel {
   position: absolute;
   top: 32px;
-  left: 30px;
+  left: 23px;
   color: #ffa500;
   overflow-y: scroll;
+  text-align: right;
+  display: block;
+  width: 30px;
 }
 </style>
