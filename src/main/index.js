@@ -23,9 +23,9 @@ function createWindow () {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 563,
+    minHeight: 480,
     useContentSize: true,
-    width: 1000,
+    minWidth: 890,
     title: 'Buck Naked'
   })
 
