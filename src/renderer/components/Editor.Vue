@@ -52,14 +52,14 @@ export default {
 }
 
 #editorPanel {
-  height: 92vh;
-  padding: 10px;
+  height: calc(100vh - 30px);
+  width: calc(50vw - 30px);
 }
 
 #lineNumberPanel {
   position: absolute;
-  top: 32px;
-  left: 23px;
+  top: 21px;
+  left: 12px;
   color: #ffa500;
   overflow-y: scroll;
   text-align: right;
