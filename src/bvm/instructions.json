@@ -1,0 +1,8 @@
+{
+  "add": {
+    "arg_count": 3,
+    "val_1": "num",
+    "val_2": "num",
+    "expr": "val_1 + val_2"
+  }
+}
