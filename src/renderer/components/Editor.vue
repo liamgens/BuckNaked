@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="editorPanel">
-      <textarea v-model="code" id="editor" contenteditable></textarea>
+      <textarea v-model="boop" id="editor" contenteditable></textarea>
     </div>
     <div id="lineNumberPanel">
       <LineNumbers style="text-align: right;"></LineNumbers>
@@ -17,7 +17,7 @@ export default {
     LineNumbers
   },
   computed: {
-    code: {
+    boop: {
       get () {
         return this.$store.state.code
       },

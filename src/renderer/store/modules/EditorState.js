@@ -1,3 +1,5 @@
+import { boop } from '../../components/Editor.vue'
+
 const state = {
   fileContents: '',
   code: '',
@@ -11,6 +13,7 @@ const mutations = {
   editCode (state, code) {
     state.lineCount = code.split('\n').length
     state.code = code
+    this.default.boop = 'HI'
   }
 }
 
