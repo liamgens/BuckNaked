@@ -8,7 +8,7 @@ describe('syntax.js', () => {
     expect(() => syntax(['add', 1, 5])).to.throw('Expected 3 args but got 2')
   })
   it('should throw an argument when there are too many arguments', () => {
-    expect(() => syntax(['add', 34, -92, 23, 'd'])).to.throw(
+    expect(() => syntax(['sub', 34, -92, 23, 'd'])).to.throw(
       'Expected 3 args but got 4'
     )
   })
