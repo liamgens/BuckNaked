@@ -28,12 +28,16 @@
 </template>
 
 <script>
+import { EventBus } from '../main.js'
+
 export default {
   methods: {
     run: function () {
+      EventBus.$emit('gfxClear')
       this.$store.commit('editFileContents', this.$store.getters.code)
     },
     clear: function () {
+      EventBus.$emit('gfxClear')
       this.$store.commit('editFileContents', '')
     }
   }
