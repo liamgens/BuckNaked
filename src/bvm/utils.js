@@ -6,7 +6,7 @@ export function saveToFile (code) {
   const fileName = 'yourCode'
   // WRITES TO FILE
   const data = code + '\n'
-  fs.writeFile(fileName + '.buck', data, (err) => {
+  fs.writeFile(fileName + '.buck', data, err => {
     if (err) throw err
     console.log(data)
     console.log('The file has been saved!')
