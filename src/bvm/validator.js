@@ -1,4 +1,4 @@
-import { getType } from './types'
+import { getType, convertType } from './types'
 
 const instructions = require('./instructions')
 const destFirst = ['var', 'set']
@@ -22,8 +22,7 @@ export const getNamedValueType = (arg, env) => {
   var type = 'name'
   try {
     type = getType(env.getVariable(arg))
-  } catch (err) {
-  }
+  } catch (err) {}
   return type
 }
 
@@ -37,7 +36,10 @@ export const validateDest = (dest, inst) => {
 }
 
 const checkForDivByZero = (inst, args, env) => {
-  if ((inst === 'div' || inst === 'mod') && getVariableActualValue(args[1], env) === '0') {
+  if (
+    (inst === 'div' || inst === 'mod') &&
+    getVariableActualValue(args[1], env) === '0'
+  ) {
     throw new Error('Divide by zero error')
   }
 }
@@ -46,12 +48,11 @@ const getVariableActualValue = (arg, env) => {
   var value = arg
   try {
     value = getType(env.getVariable(arg))
-  } catch (err) {
-  }
+  } catch (err) {}
   return value
 }
 
-export const validate = ({inst, args}, env) => {
+export const validate = ({ inst, args }, env) => {
   checkForDivByZero(inst, args, env)
   if (destFirst.includes(inst)) {
     validateDest(args[0], inst)
@@ -63,10 +64,18 @@ export const validate = ({inst, args}, env) => {
     }
     let types = getArgTypes(argsWithoutDest, env)
     for (var i = 0; i < types.length; i++) {
-      if (types[i] !== instructions[inst].arg_types[i] && instructions[inst].arg_types[i] !== 'any') {
+      if (
+        types[i] !== instructions[inst].arg_types[i] &&
+        instructions[inst].arg_types[i] !== 'any'
+      ) {
         throw new Error('Operation and operand types did not match')
       }
     }
   }
-  return {inst, args}
+
+  for (let i = 0; i < args.length; i++) {
+    args[i] = convertType(args[i])
+  }
+
+  return { inst, args }
 }

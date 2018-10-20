@@ -1,5 +1,10 @@
-import { Environment } from './environment'
+import { parse } from './parser'
+import { syntax } from './syntax'
+import { validate } from './validator'
+import { execute } from './executor'
 
-let envStack = [new Environment({ scope: {}, functions: {} })]
-
-export const interpeter = code => {}
+export const interpreter = (code, env) => {
+  for (let i = 0; i < code.length; i++) {
+    execute(validate(syntax(parse(code[i]))), env[0])
+  }
+}

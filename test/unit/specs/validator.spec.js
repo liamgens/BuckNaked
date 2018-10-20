@@ -28,20 +28,23 @@ describe('validator.js', () => {
 
   it('getArgTypes should return a set of the types of the values of the variables passed in', () => {
     let expected = ['string', 'string', 'num', 'bool']
-    let env = new Environment({ scope: { }, functions: { } })
+    let env = new Environment({ scope: {}, functions: {} })
     env.addVariable('string1', '"SlickRick"')
     env.addVariable('string2', '"SlackRack"')
     env.addVariable('num1', '69.420')
     env.addVariable('BrendanIsHandsome', 'false')
-    let actual = getArgTypes(['string1', 'string2', 'num1', 'BrendanIsHandsome'], env)
+    let actual = getArgTypes(
+      ['string1', 'string2', 'num1', 'BrendanIsHandsome'],
+      env
+    )
     for (let i = 0; i < expected.length; i++) {
       expect(actual[i]).eql(expected[i])
     }
   })
 
-  it('should return \'name\' when a name that has not been assigned yet is passed in', () => {
+  it("should return 'name' when a name that has not been assigned yet is passed in", () => {
     let expected = ['name', 'name']
-    let env = new Environment({ scope: { }, functions: { } })
+    let env = new Environment({ scope: {}, functions: {} })
     let actual = getArgTypes(['string1', 'string2'], env)
     for (let i = 0; i < expected.length; i++) {
       expect(actual[i]).eql(expected[i])
@@ -53,7 +56,9 @@ describe('validator.js', () => {
       inst: 'add',
       args: ['1.5', 'false', 'dest']
     }
-    expect(function () { validate(instSet, {}) }).throw('Operation and operand types did not match')
+    expect(function () {
+      validate(instSet, {})
+    }).throw('Operation and operand types did not match')
   })
 
   it('should throw an error when operand types do not match operator types', () => {
@@ -61,7 +66,9 @@ describe('validator.js', () => {
       inst: 'add',
       args: ['1.5', 'false', 'dest']
     }
-    expect(function () { validate(instSet, {}) }).throw('Operation and operand types did not match')
+    expect(function () {
+      validate(instSet, {})
+    }).throw('Operation and operand types did not match')
   })
 
   it('should throw an error when operand types do not match operator types', () => {
@@ -69,7 +76,9 @@ describe('validator.js', () => {
       inst: 'add',
       args: ['1.5', 'false', 'dest']
     }
-    expect(function () { validate(instSet, {}) }).throw('Operation and operand types did not match')
+    expect(function () {
+      validate(instSet, {})
+    }).throw('Operation and operand types did not match')
   })
 
   it('should throw an error if the first argument in a var or set command is not a name', () => {
@@ -77,7 +86,9 @@ describe('validator.js', () => {
       inst: 'var',
       args: ['1.5', 'false']
     }
-    expect(function () { validate(instSet, {}) }).throw('var operation requires a destination')
+    expect(function () {
+      validate(instSet, {})
+    }).throw('var operation requires a destination')
   })
 
   it('should validate a normal var, or set instruction with no issues', () => {
@@ -109,7 +120,9 @@ describe('validator.js', () => {
       args: ['1', '2', 'false']
     }
 
-    expect(function () { validate(instSet1, {}) }).throw('add operation requires a destination')
+    expect(function () {
+      validate(instSet1, {})
+    }).throw('add operation requires a destination')
   })
 
   it('should throw an error if a destination is a keyword', () => {
@@ -122,8 +135,12 @@ describe('validator.js', () => {
       args: ['add']
     }
 
-    expect(function () { validate(instSet1, {}) }).throw('Variable naming error: div is a keyword')
-    expect(function () { validate(instSet2, {}) }).throw('Variable naming error: add is a keyword')
+    expect(function () {
+      validate(instSet1, {})
+    }).throw('Variable naming error: div is a keyword')
+    expect(function () {
+      validate(instSet2, {})
+    }).throw('Variable naming error: add is a keyword')
   })
 
   it('should throw an error if an instruction tries to divide by 0', () => {
@@ -132,7 +149,9 @@ describe('validator.js', () => {
       args: ['0', '0', 'di']
     }
 
-    expect(function () { validate(instSet1, {}) }).throw('Divide by zero error')
+    expect(function () {
+      validate(instSet1, {})
+    }).throw('Divide by zero error')
   })
 
   it('should return the original input if successful', () => {
@@ -140,7 +159,7 @@ describe('validator.js', () => {
       inst: 'div',
       args: ['0', '1', 'di']
     }
-    let returnedInstSet = validate(instSet1, {scope: {}, functions: {}})
+    let returnedInstSet = validate(instSet1, { scope: {}, functions: {} })
     expect(returnedInstSet).eql(instSet1)
   })
 })
