@@ -85,6 +85,10 @@ describe('validator.js', () => {
       inst: 'var',
       args: ['JebBushHasHighCholesterol', 'false']
     }
+    let instSet4 = {
+      inst: 'var',
+      args: ['JebBushHasHighCholesterol']
+    }
     let instSet2 = {
       inst: 'set',
       args: ['JebBushHasHighCholesterol', 'false']
@@ -96,5 +100,6 @@ describe('validator.js', () => {
     typecheck(instSet1, {})
     typecheck(instSet2, {})
     typecheck(instSet3, {})
+    typecheck(instSet4, {})
   })
 })
