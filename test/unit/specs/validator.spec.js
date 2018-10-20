@@ -1,4 +1,4 @@
-import { typecheck, getArgTypes } from '../../../src/bvm/validator'
+import { validate, getArgTypes } from '../../../src/bvm/validator'
 import { Environment } from '../../../src/bvm/environment'
 
 describe('validator.js', () => {
@@ -53,7 +53,7 @@ describe('validator.js', () => {
       inst: 'add',
       args: ['1.5', 'false', 'dest']
     }
-    expect(function () { typecheck(instSet, {}) }).throw('Operation and operand types did not match')
+    expect(function () { validate(instSet, {}) }).throw('Operation and operand types did not match')
   })
 
   it('should throw an error when operand types do not match operator types', () => {
@@ -61,7 +61,7 @@ describe('validator.js', () => {
       inst: 'add',
       args: ['1.5', 'false', 'dest']
     }
-    expect(function () { typecheck(instSet, {}) }).throw('Operation and operand types did not match')
+    expect(function () { validate(instSet, {}) }).throw('Operation and operand types did not match')
   })
 
   it('should throw an error when operand types do not match operator types', () => {
@@ -69,7 +69,7 @@ describe('validator.js', () => {
       inst: 'add',
       args: ['1.5', 'false', 'dest']
     }
-    expect(function () { typecheck(instSet, {}) }).throw('Operation and operand types did not match')
+    expect(function () { validate(instSet, {}) }).throw('Operation and operand types did not match')
   })
 
   it('should throw an error if the first argument in a var or set command is not a name', () => {
@@ -77,7 +77,7 @@ describe('validator.js', () => {
       inst: 'var',
       args: ['1.5', 'false']
     }
-    expect(function () { typecheck(instSet, {}) }).throw('var operation requires a destination')
+    expect(function () { validate(instSet, {}) }).throw('var operation requires a destination')
   })
 
   it('should validate a normal var, or set instruction with no issues', () => {
@@ -97,10 +97,10 @@ describe('validator.js', () => {
       inst: 'var',
       args: ['JebBushHasHighCholesterol', null]
     }
-    typecheck(instSet1, {})
-    typecheck(instSet2, {})
-    typecheck(instSet3, {})
-    typecheck(instSet4, {})
+    validate(instSet1, {})
+    validate(instSet2, {})
+    validate(instSet3, {})
+    validate(instSet4, {})
   })
 
   it('should throw an error if an add instruction does not have a destination as its final argument', () => {
@@ -109,7 +109,7 @@ describe('validator.js', () => {
       args: ['1', '2', 'false']
     }
 
-    expect(function () { typecheck(instSet1, {}) }).throw('add operation requires a destination')
+    expect(function () { validate(instSet1, {}) }).throw('add operation requires a destination')
   })
 
   it('should throw an error if a destination is a keyword', () => {
@@ -122,8 +122,8 @@ describe('validator.js', () => {
       args: ['add']
     }
 
-    expect(function () { typecheck(instSet1, {}) }).throw('Variable naming error: div is a keyword')
-    expect(function () { typecheck(instSet2, {}) }).throw('Variable naming error: add is a keyword')
+    expect(function () { validate(instSet1, {}) }).throw('Variable naming error: div is a keyword')
+    expect(function () { validate(instSet2, {}) }).throw('Variable naming error: add is a keyword')
   })
 
   it('should throw an error if an instruction tries to divide by 0', () => {
@@ -132,6 +132,6 @@ describe('validator.js', () => {
       args: ['0', '0', 'di']
     }
 
-    expect(function () { typecheck(instSet1, {}) }).throw('Divide by zero error')
+    expect(function () { validate(instSet1, {}) }).throw('Divide by zero error')
   })
 })

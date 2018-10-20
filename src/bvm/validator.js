@@ -51,7 +51,7 @@ const getVariableActualValue = (arg, env) => {
   return value
 }
 
-export const typecheck = ({inst, args}, env) => {
+export const validate = ({inst, args}, env) => {
   checkForDivByZero(inst, args, env)
   if (destFirst.includes(inst)) {
     validateDest(args[0], inst)
