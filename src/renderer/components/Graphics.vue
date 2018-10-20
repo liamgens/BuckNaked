@@ -1,22 +1,36 @@
+<!--
+Graphics Module
+
+To use this module, call gfx events using the global event bus (see main.js for that)
+gfxClear: Clears the graphical window
+gfxFillRect(x, y, width, height, color): Draws a filled rectangle at (x, y) with size (width, height)
+gfxOutlineRect(x, y, width, height, color): Draws a rectangle outline at (x, y) with size (width, height)
+gfxText(x, y, color, text): Draws some text at (x, y)
+
+Color arguments should be supplied as a string like so: 'rgb(128, 128, 128)' or 'red'
+-->
+
 <template>
   <div id="graphicsPanel" class="text-xs-center">
-    <p>
-      __/\\\\\\\\\\\\\_____/\\\________/\\\__/\\\\____________/\\\\_<br />
-      __\/\\\/////////\\\____\/\\\_______\/\\\_\/\\\\\\________/\\\\\\_<br />
-      ___\/\\\_______\/\\\_\//\\\______/\\\__\/\\\//\\\_____/\\\//\\\\_<br />
-      ____\/\\\\\\\\\\\\\\___\//\\\____/\\\___\/\\\\///\\\/\\\/_\/\\\\\_<br />
-      _____\/\\\/////////\\\____\//\\\__/\\\____\/\\\__\///\\\/____\/\\\\_<br />
-      ______\/\\\_______\/\\\__\//\\\/\\\_____\/\\\____\///______\/\\\\_<br />
-      _______\/\\\_______\/\\\__\//\\\\\______\/\\\______________\/\\\\_<br />
-      ________\/\\\\\\\\\\\\\/___\//\\\_______\/\\\________________\/\\\\_<br />
-      _________\/////////////________\///________\///__________________\///__<br />
-    </p>
+    <!-- Custom canvas, defined in canvas.directive.js -->
+    <canvas v-canvas></canvas>
   </div>
 </template>
 
 <script>
-export default {}
+import canvas from '../../directives/canvas.directive.js'
+
+export default {
+  directives: {
+    canvas
+  }
+}
 </script>
 
 <style>
+canvas {
+  background: black;
+  width: 256px;
+  height: 256px;
+}
 </style>
