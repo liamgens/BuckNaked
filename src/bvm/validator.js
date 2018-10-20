@@ -22,7 +22,8 @@ export const getNamedValueType = (arg, env) => {
   var type = 'name'
   try {
     type = getType(env.getVariable(arg))
-  } catch (err) {}
+  } catch (err) {
+  }
   return type
 }
 
@@ -52,6 +53,18 @@ const getVariableActualValue = (arg, env) => {
   return value
 }
 
+const actualValueOf = (arg, env) => {
+  var actualValue = arg
+  if (getType(arg) === 'name') {
+    try {
+      actualValue = env.getVariable(arg)
+    } catch (err) {
+    }
+  }
+
+  return actualValue
+}
+
 export const validate = ({ inst, args }, env) => {
   checkForDivByZero(inst, args, env)
   if (destFirst.includes(inst)) {
@@ -70,6 +83,9 @@ export const validate = ({ inst, args }, env) => {
       ) {
         throw new Error('Operation and operand types did not match')
       }
+    }
+    for (let i = 0; i < argsWithoutDest.length; i++) {
+      args[i] = actualValueOf(args[i], env)
     }
   }
 
