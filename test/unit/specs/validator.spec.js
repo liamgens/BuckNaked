@@ -28,7 +28,7 @@ describe('validator.js', () => {
   it('should throw an error when operands for math operations are different types', () => {
     let instSet = {
       inst: 'add',
-      args: ['1.5', 'false', '3']
+      args: ['1.5', 'false', 'dest']
     }
     expect(function () { typecheck(instSet) }).throw('Operation and operand types did not match')
   })
@@ -36,7 +36,7 @@ describe('validator.js', () => {
   it('should throw an error when operand types do not match operator types', () => {
     let instSet = {
       inst: 'add',
-      args: ['1.5', 'false', '3']
+      args: ['1.5', 'false', 'dest']
     }
     expect(function () { typecheck(instSet) }).throw('Operation and operand types did not match')
   })
