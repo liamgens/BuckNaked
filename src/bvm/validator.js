@@ -1,5 +1,3 @@
-// const maths = ['add', 'sub', 'mul', 'div', 'mod']
-// const bools = ['and', 'or']
 const instructions = require('./instructions')
 
 export const getArgTypes = args => {
@@ -26,7 +24,11 @@ export const getNamedValue = arg => {
 
 export const typecheck = ({inst, args}) => {
   // Must add checking for making sure variables are defined
-  let types = getArgTypes(args)
+  let argsWithoutDest = []
+  for (let i = 0; i < args.length - 1; i++) {
+    argsWithoutDest.push(args[i])
+  }
+  let types = getArgTypes(argsWithoutDest)
   for (var i = 0; i < types.length; i++) {
     if (types[i] !== instructions[inst].arg_types[i]) {
       throw new Error('Operation and operand types did not match')
