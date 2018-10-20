@@ -134,4 +134,13 @@ describe('validator.js', () => {
 
     expect(function () { validate(instSet1, {}) }).throw('Divide by zero error')
   })
+
+  it('should return the original input if successful', () => {
+    let instSet1 = {
+      inst: 'div',
+      args: ['0', '1', 'di']
+    }
+    let returnedInstSet = validate(instSet1, {scope: {}, functions: {}})
+    expect(returnedInstSet).eql(instSet1)
+  })
 })

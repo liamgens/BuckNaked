@@ -68,4 +68,5 @@ export const validate = ({inst, args}, env) => {
       }
     }
   }
+  return {inst, args}
 }
