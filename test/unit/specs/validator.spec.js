@@ -77,7 +77,7 @@ describe('validator.js', () => {
       inst: 'var',
       args: ['1.5', 'false']
     }
-    expect(function () { typecheck(instSet, {}) }).throw('First argument for set and var operations should be a destination')
+    expect(function () { typecheck(instSet, {}) }).throw('var operation requires a destination')
   })
 
   it('should validate a normal var, or set instruction with no issues', () => {
@@ -101,5 +101,37 @@ describe('validator.js', () => {
     typecheck(instSet2, {})
     typecheck(instSet3, {})
     typecheck(instSet4, {})
+  })
+
+  it('should throw an error if an add instruction does not have a destination as its final argument', () => {
+    let instSet1 = {
+      inst: 'add',
+      args: ['1', '2', 'false']
+    }
+
+    expect(function () { typecheck(instSet1, {}) }).throw('add operation requires a destination')
+  })
+
+  it('should throw an error if a destination is a keyword', () => {
+    let instSet1 = {
+      inst: 'add',
+      args: ['1', '2', 'div']
+    }
+    let instSet2 = {
+      inst: 'var',
+      args: ['add']
+    }
+
+    expect(function () { typecheck(instSet1, {}) }).throw('Variable naming error: div is a keyword')
+    expect(function () { typecheck(instSet2, {}) }).throw('Variable naming error: add is a keyword')
+  })
+
+  it('should throw an error if an instruction tries to divide by 0', () => {
+    let instSet1 = {
+      inst: 'div',
+      args: ['0', '0', 'di']
+    }
+
+    expect(function () { typecheck(instSet1, {}) }).throw('Divide by zero error')
   })
 })

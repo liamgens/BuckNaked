@@ -2,6 +2,7 @@ import { getType } from './types'
 
 const instructions = require('./instructions')
 const destFirst = ['var', 'set']
+// const keywords = ['var', ]
 
 export const getArgTypes = (args, env) => {
   let types = []
@@ -28,17 +29,34 @@ export const getNamedValueType = (arg, env) => {
 
 export const validateDest = (dest, inst) => {
   if (getType(dest) !== 'name') {
-    throw new Error(`${inst} operation requires a destination as the last argument`)
+    throw new Error(`${inst} operation requires a destination`)
+  }
+  if (dest in instructions || dest === 'true' || dest === 'false') {
+    throw new Error(`Variable naming error: ${dest} is a keyword`)
   }
 }
 
+const checkForDivByZero = (inst, args, env) => {
+  if ((inst === 'div' || inst === 'mod') && getVariableActualValue(args[1], env) === '0') {
+    throw new Error('Divide by zero error')
+  }
+}
+
+const getVariableActualValue = (arg, env) => {
+  var value = arg
+  try {
+    value = getType(env.getVariable(arg))
+  } catch (err) {
+  }
+  return value
+}
+
 export const typecheck = ({inst, args}, env) => {
-  // Must add checking for making sure variables are defined
+  checkForDivByZero(inst, args, env)
   if (destFirst.includes(inst)) {
-    if (getType(args[0]) !== 'name') {
-      throw new Error('First argument for set and var operations should be a destination')
-    }
+    validateDest(args[0], inst)
   } else {
+    validateDest(args[args.length - 1], inst)
     let argsWithoutDest = []
     for (let i = 0; i < args.length - 1; i++) {
       argsWithoutDest.push(args[i])
