@@ -10,7 +10,9 @@ export class Environment {
     return this.functions
   }
   addVariable (name, value) {
-    value = value || null
+    if (value === undefined) {
+      value = null
+    }
     if (name in this.scope) {
       throw new Error(`Variable ${name} is already defined.`)
     } else if (name in this.functions) {
