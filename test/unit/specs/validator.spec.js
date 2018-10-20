@@ -71,4 +71,35 @@ describe('validator.js', () => {
     }
     expect(function () { typecheck(instSet, {}) }).throw('Operation and operand types did not match')
   })
+
+  it('should throw an error if the first argument in a var or set command is not a name', () => {
+    let instSet = {
+      inst: 'var',
+      args: ['1.5', 'false']
+    }
+    expect(function () { typecheck(instSet, {}) }).throw('First argument for set and var operations should be a destination')
+  })
+
+  it('should validate a normal var, or set instruction with no issues', () => {
+    let instSet1 = {
+      inst: 'var',
+      args: ['JebBushHasHighCholesterol', 'false']
+    }
+    let instSet4 = {
+      inst: 'var',
+      args: ['JebBushHasHighCholesterol']
+    }
+    let instSet2 = {
+      inst: 'set',
+      args: ['JebBushHasHighCholesterol', 'false']
+    }
+    let instSet3 = {
+      inst: 'var',
+      args: ['JebBushHasHighCholesterol', null]
+    }
+    typecheck(instSet1, {})
+    typecheck(instSet2, {})
+    typecheck(instSet3, {})
+    typecheck(instSet4, {})
+  })
 })
