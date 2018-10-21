@@ -4,9 +4,9 @@ import { Environment } from '../../../src/bvm/environment'
 describe('interpreter.js', () => {
   it('test add good', () => {
     let envStack = [new Environment({ scope: {}, functions: {} })]
-    let code = ['var x 1', 'var y x']
+    let code = ['var x 1', 'var y x', 'add y 1 y']
     interpreter(code, envStack)
-    expect(envStack[0].getVariable('y')).to.eql(1)
+    expect(envStack[0].getVariable('y')).to.eql(2)
   })
   it('test mul good', () => {
     let envStack = [new Environment({ scope: {}, functions: {} })]
@@ -41,7 +41,8 @@ describe('interpreter.js', () => {
   it('test mul bad', () => {
     let envStack = [new Environment({ scope: {}, functions: {} })]
     let code = ['var red true', 'mul red 8 red']
-    interpreter(code, envStack)
-    console.log(envStack[0].scope)
+    expect(() => interpreter(code, envStack)).to.throw(
+      'Operation and operand types did not match'
+    )
   })
 })

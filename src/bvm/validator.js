@@ -22,8 +22,7 @@ export const getNamedValueType = (arg, env) => {
   var type = 'name'
   try {
     type = getType(env.getVariable(arg))
-  } catch (err) {
-  }
+  } catch (err) {}
   return type
 }
 
@@ -61,8 +60,7 @@ const actualValueOf = (arg, env) => {
   if (getType(arg) === 'name') {
     try {
       actualValue = env.getVariable(arg)
-    } catch (err) {
-    }
+    } catch (err) {}
   }
 
   return actualValue
@@ -98,6 +96,5 @@ export const validate = ({ inst, args }, env) => {
   for (let i = 0; i < args.length; i++) {
     args[i] = convertType(args[i])
   }
-
   return { inst, args }
 }
