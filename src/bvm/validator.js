@@ -70,13 +70,10 @@ export const validate = ({ inst, args }, env) => {
     if (args.length > 1) {
       args[1] = actualValueOf(args[1], env)
     }
-    console.log(inst)
   } else {
     let argsWithoutDest = []
-    for (let i = 0; i < args.length; i++) {
-      if (!(eval(instructions[inst].dest), inst === args[i])) {
-        argsWithoutDest.push(args[i])
-      }
+    for (let i = 0; i < args.length - 1; i++) {
+      argsWithoutDest.push(args[i])
     }
     let types = getArgTypes(argsWithoutDest, env)
     for (var i = 0; i < types.length; i++) {
@@ -90,6 +87,9 @@ export const validate = ({ inst, args }, env) => {
     for (let i = 0; i < argsWithoutDest.length; i++) {
       args[i] = actualValueOf(args[i], env)
     }
+  }
+  if (inst === 'print') {
+    args[0] = actualValueOf(args[0], env)
   }
   for (let i = 0; i < args.length; i++) {
     args[i] = convertType(args[i])
