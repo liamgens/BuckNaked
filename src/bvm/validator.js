@@ -39,9 +39,12 @@ export const validateDest = (dest, inst) => {
 }
 
 const checkForDivByZero = (inst, args, env) => {
+  console.log('oink')
   if (
     (inst === 'div' || inst === 'mod') &&
-    actualValueOf(args[1], env) === '0'
+    (actualValueOf(args[1], env) === '0' ||
+    actualValueOf(args[1], env) === 0
+    )
   ) {
     throw new Error('Divide by zero error')
   }
@@ -92,6 +95,9 @@ export const validate = ({ inst, args }, env) => {
     args[0] = actualValueOf(args[0], env)
     if (getType(args[0]) === 'name') {
       throw new Error(`Cannot print ${args[0]} because it has not been assigned a value`)
+    }
+    if (args[0].charAt(0) === '"' && args[0].charAt(args[0].length - 1) === '"') {
+      args[0] = args[0].slice(1, args[0].length - 1)
     }
   }
   for (let i = 0; i < args.length; i++) {

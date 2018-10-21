@@ -23,8 +23,6 @@ export const convertType = arg => {
     return arg
   } else if (!isNaN(arg)) {
     return Number(arg)
-  } else if (arg.charAt(0) === '"' && arg.charAt(arg.length - 1) === '"') {
-    return arg.slice(1, arg.length - 1)
   } else {
     return arg
   }
