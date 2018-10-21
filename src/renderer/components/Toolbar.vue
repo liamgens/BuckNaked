@@ -7,7 +7,7 @@
       <span>Execute Code</span>
     </v-tooltip>
     <v-tooltip bottom>
-      <v-btn color="error" slot="activator" disabled>
+      <v-btn @click="stop" color="error" slot="activator" :disabled="!state.running">
         <v-icon light>stop</v-icon>
       </v-btn>
       <span>Stop Execution</span>
@@ -33,16 +33,28 @@ import { Environment } from '../../bvm/environment'
 import { EventBus } from '../main.js'
 
 export default {
+  data: function () {
+    return {
+      state: {
+        running: false
+      }
+    }
+  },
   methods: {
     run: function () {
       this.$store.commit('clearOutput')
       EventBus.$emit('gfxClear')
       this.$store.commit('editFileContents', this.$store.getters.code)
+      this.state.running = true
       interpreter(this.$store.getters.codeAsArray, [new Environment({scope: {}, functions: {}})])
+      this.state.running = false
     },
     clear: function () {
       this.$store.commit('clearOutput')
       EventBus.$emit('gfxClear')
+    },
+    stop: function () {
+      this.state.running = false
     }
   }
 }
