@@ -90,6 +90,9 @@ export const validate = ({ inst, args }, env) => {
   }
   if (inst === 'print') {
     args[0] = actualValueOf(args[0], env)
+    if (getType(args[0]) === 'name') {
+      throw new Error(`Cannot print ${args[0]} because it has not been assigned a value`)
+    }
   }
   for (let i = 0; i < args.length; i++) {
     args[i] = convertType(args[i])
