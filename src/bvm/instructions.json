@@ -40,5 +40,10 @@
     "arg_count": 2,
     "arg_types": ["name", "any"],
     "expr": "env.setVariable(args[0], args[1])"
+  },
+  "print": {
+    "arg_count": 1,
+    "arg_types": ["any"],
+    "expr": "sysout(args[0])"
   }
 }
