@@ -28,13 +28,18 @@
 </template>
 
 <script>
+import { interpreter } from '../../bvm/interpreter'
+import { Environment } from '../../bvm/environment'
+
 export default {
   methods: {
     run: function () {
+      this.$store.commit('clearOutput')
       this.$store.commit('editFileContents', this.$store.getters.code)
+      interpreter(this.$store.getters.codeAsArray, [new Environment({scope: {}, functions: {}})])
     },
     clear: function () {
-      this.$store.commit('editFileContents', '')
+      this.$store.commit('clearOutput')
     }
   }
 }
