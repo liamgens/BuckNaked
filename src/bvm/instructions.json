@@ -1,0 +1,44 @@
+{
+  "add": {
+    "arg_count": 3,
+    "arg_types": ["num", "num"],
+    "expr": "args[0] + args[1]",
+    "dest": "args[2]"
+  },
+  "sub": {
+    "arg_count": 3,
+    "arg_types": ["num", "num"],
+    "expr": "args[0] - args[1]",
+    "dest": "args[2]"
+  },
+  "mul": {
+    "arg_count": 3,
+    "arg_types": ["num", "num"],
+    "expr": "args[0] * args[1]",
+    "dest": "args[2]"
+  },
+  "div": {
+    "arg_count": 3,
+    "arg_types": ["num", "num"],
+    "expr": "args[0] / args[1]",
+    "dest": "args[2]",
+    "div_by_zero": "args[1]"
+  },
+  "mod": {
+    "arg_count": 3,
+    "arg_types": ["num", "num"],
+    "expr": "args[0] % args[1]",
+    "dest": "args[2]",
+    "div_by_zero": "args[1]"
+  },
+  "var": {
+    "arg_count": 2,
+    "arg_types": ["name", "any"],
+    "expr": "env.addVariable(args[0], args[1])"
+  },
+  "set": {
+    "arg_count": 2,
+    "arg_types": ["name", "any"],
+    "expr": "env.setVariable(args[0], args[1])"
+  }
+}
