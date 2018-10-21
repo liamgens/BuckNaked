@@ -63,14 +63,20 @@ export const validate = ({ inst, args }, env) => {
   if ('dest' in instructions[inst]) {
     validateDest(eval(instructions[inst].dest), inst)
   }
+  if ('name' in instructions[inst]) {
+    validateDest(eval(instructions[inst].name), inst)
+  }
   if (destFirst.includes(inst)) {
     if (args.length > 1) {
       args[1] = actualValueOf(args[1], env)
     }
+    console.log(inst)
   } else {
     let argsWithoutDest = []
-    for (let i = 0; i < args.length - 1; i++) {
-      argsWithoutDest.push(args[i])
+    for (let i = 0; i < args.length; i++) {
+      if (!(eval(instructions[inst].dest), inst === args[i])) {
+        argsWithoutDest.push(args[i])
+      }
     }
     let types = getArgTypes(argsWithoutDest, env)
     for (var i = 0; i < types.length; i++) {
@@ -85,7 +91,6 @@ export const validate = ({ inst, args }, env) => {
       args[i] = actualValueOf(args[i], env)
     }
   }
-
   for (let i = 0; i < args.length; i++) {
     args[i] = convertType(args[i])
   }

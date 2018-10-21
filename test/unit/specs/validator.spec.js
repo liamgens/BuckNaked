@@ -165,12 +165,12 @@ describe('validator.js', () => {
 
   it('should throw an error if a variable with a name not beginning with a letter is declared', () => {
     let instSet1 = {
-      inst: 'val',
+      inst: 'var',
       args: ['0fdsa']
     }
 
     expect(function () {
-      validate(instSet1, {})
+      validate(instSet1, { scope: {}, functions: {} })
     }).throw('Variable names must start with a letter')
   })
 })
