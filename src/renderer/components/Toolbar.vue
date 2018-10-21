@@ -30,16 +30,19 @@
 <script>
 import { interpreter } from '../../bvm/interpreter'
 import { Environment } from '../../bvm/environment'
+import { EventBus } from '../main.js'
 
 export default {
   methods: {
     run: function () {
       this.$store.commit('clearOutput')
+      EventBus.$emit('gfxClear')
       this.$store.commit('editFileContents', this.$store.getters.code)
       interpreter(this.$store.getters.codeAsArray, [new Environment({scope: {}, functions: {}})])
     },
     clear: function () {
       this.$store.commit('clearOutput')
+      EventBus.$emit('gfxClear')
     }
   }
 }
