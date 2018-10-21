@@ -15,7 +15,7 @@ const mutations = {
   },
   appendOutput (state, output) {
     let newOutput = state.outputBuffer
-    newOutput.push(output)
+    newOutput.push(String(output))
     state.outputBuffer = newOutput
   },
   clearOutput (state) {
