@@ -60,13 +60,14 @@ const actualValueOf = (arg, env) => {
 
 export const validate = ({ inst, args }, env) => {
   checkForDivByZero(inst, args, env)
+  if ('dest' in instructions[inst]) {
+    validateDest(eval(instructions[inst].dest), inst)
+  }
   if (destFirst.includes(inst)) {
-    validateDest(args[0], inst)
     if (args.length > 1) {
       args[1] = actualValueOf(args[1], env)
     }
   } else {
-    validateDest(args[args.length - 1], inst)
     let argsWithoutDest = []
     for (let i = 0; i < args.length - 1; i++) {
       argsWithoutDest.push(args[i])
