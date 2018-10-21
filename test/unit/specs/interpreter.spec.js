@@ -45,4 +45,18 @@ describe('interpreter.js', () => {
       'Operation and operand types did not match'
     )
   })
+  it('test sub bad', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var penis "ayybb"', 'sub penis "piss" penis']
+    expect(() => interpreter(code, envStack)).to.throw(
+      'Operation and operand types did not match'
+    )
+  })
+  it('test div bad', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var fig 23', 'div fig "0" fig']
+    expect(() => interpreter(code, envStack)).to.throw(
+      'Operation and operand types did not match'
+    )
+  })
 })
