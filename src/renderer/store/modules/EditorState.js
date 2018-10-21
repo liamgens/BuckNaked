@@ -28,7 +28,8 @@ const getters = {
     return state.fileContents
   },
   codeAsArray: () => {
-    return state.code.split('\n')
+    // Remove any empty lines as "code"
+    return state.code.split('\n').filter(x => !x.replace(/\s/g, '').length <= 0)
   },
   code: () => {
     return state.code
@@ -37,14 +38,8 @@ const getters = {
     return state.lineCount
   },
   output: () => {
-    let output = ''
-    for (var i = 0; i < state.outputBuffer.length; i++) {
-      // Remove whitespace to check for an empty or blank line
-      if (!state.outputBuffer[i].replace(/\s/g, '').length <= 0) {
-        output += '> ' + state.outputBuffer[i] + '\n'
-      }
-    }
-    return output
+    // Format the output to have specific format and return as a string
+    return state.outputBuffer.map(out => `> ${out} \n`).join('')
   }
 }
 
