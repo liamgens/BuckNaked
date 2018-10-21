@@ -41,18 +41,10 @@ export const validateDest = (dest, inst) => {
 const checkForDivByZero = (inst, args, env) => {
   if (
     (inst === 'div' || inst === 'mod') &&
-    getVariableActualValue(args[1], env) === '0'
+    actualValueOf(args[1], env) === '0'
   ) {
     throw new Error('Divide by zero error')
   }
-}
-
-const getVariableActualValue = (arg, env) => {
-  var value = arg
-  try {
-    value = getType(env.getVariable(arg))
-  } catch (err) {}
-  return value
 }
 
 const actualValueOf = (arg, env) => {

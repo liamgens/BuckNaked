@@ -19,6 +19,24 @@ describe('interpreter.js', () => {
     interpreter(code, envStack)
     expect(envStack[0].getVariable('richie')).to.eql(-72)
   })
+  it('test mul long', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = [
+      'var tinyTeen',
+      'set tinyTeen 9',
+      'var richie',
+      'mul tinyTeen -8 richie',
+      'var bustyRedhead -1',
+      'var BBW 10',
+      'mul bustyRedhead BBW BBW',
+      'mul bustyRedhead BBW BBW',
+      'mul bustyRedhead BBW BBW',
+      'mul bustyRedhead BBW BBW'
+    ]
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('richie')).to.eql(-72)
+    expect(envStack[0].getVariable('BBW'))
+  })
   it('test sub good', () => {
     let envStack = [new Environment({ scope: {}, functions: {} })]
     let code = ['var u 8', 'var x', 'sub u -1 x']
@@ -57,6 +75,44 @@ describe('interpreter.js', () => {
     let code = ['var fig 23', 'div fig "0" fig']
     expect(() => interpreter(code, envStack)).to.throw(
       'Operation and operand types did not match'
+    )
+  })
+  it('test math div by zero', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = [
+      'var fig 23',
+      'sub fig 23 fig',
+      'div fig 0 fig'
+    ]
+    expect(() => interpreter(code, envStack)).to.throw(
+      'Divide by zero error'
+    )
+  })
+  it('test var bad names', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = [
+      'var 2b3'
+    ]
+    expect(() => interpreter(code, envStack)).to.throw(
+      'Variable names must start with a letter'
+    )
+  })
+  it('test no keyword variables', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = [
+      'var set'
+    ]
+    expect(() => interpreter(code, envStack)).to.throw(
+      'Variable naming error: set is a keyword'
+    )
+  })
+  it('test no destination', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = [
+      'set 51 oink'
+    ]
+    expect(() => interpreter(code, envStack)).to.throw(
+      'set operation requires a destination'
     )
   })
 })
