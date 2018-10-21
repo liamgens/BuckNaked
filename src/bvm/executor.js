@@ -1,4 +1,4 @@
-// import store from '../../src/renderer/store/index'
+import store from '../../src/renderer/store/index'
 const instructions = require('./instructions')
 
 export const execute = ({ inst, args }, env) => {
@@ -12,5 +12,10 @@ export const execute = ({ inst, args }, env) => {
   } else {
     eval(expr)
   }
-  // store.commit('appendOutput', 'testing 124')
 }
+
+/* eslint-disable no-unused-vars */
+const sysout = output => {
+  store.commit('appendOutput', output)
+}
+/* eslint-enable no-unused-vars */
