@@ -4,9 +4,9 @@ import { Environment } from '../../../src/bvm/environment'
 describe('interpreter.js', () => {
   it('test add good', () => {
     let envStack = [new Environment({ scope: {}, functions: {} })]
-    let code = ['var x 1', 'add x 1 x']
+    let code = ['var x 1', 'var y x']
     interpreter(code, envStack)
-    expect(envStack[0].getVariable('x')).to.eql(2)
+    expect(envStack[0].getVariable('y')).to.eql(1)
   })
   it('test mul good', () => {
     let envStack = [new Environment({ scope: {}, functions: {} })]
