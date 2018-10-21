@@ -10,6 +10,7 @@ export const interpreter = (code, env) => {
         execute(validate(syntax(parse(code[i])), env[0]), env[0])
       } catch (error) {
         sysout(`Error on line ${i + 1}: ${error.message}`)
+        throw error
       }
     }
   }

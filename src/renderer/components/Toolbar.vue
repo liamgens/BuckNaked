@@ -46,7 +46,11 @@ export default {
       EventBus.$emit('gfxClear')
       this.$store.commit('editFileContents', this.$store.getters.code)
       this.state.running = true
-      interpreter(this.$store.getters.codeAsArray, [new Environment({scope: {}, functions: {}})])
+
+      try {
+        interpreter(this.$store.getters.codeAsArray, [new Environment({scope: {}, functions: {}})])
+      } catch (error) { }
+
       this.state.running = false
     },
     clear: function () {
