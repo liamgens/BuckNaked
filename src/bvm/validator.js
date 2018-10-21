@@ -34,6 +34,9 @@ export const validateDest = (dest, inst) => {
   if (dest in instructions || dest === 'true' || dest === 'false') {
     throw new Error(`Variable naming error: ${dest} is a keyword`)
   }
+  if (dest.charAt(0).toLowerCase() === dest.charAt(0).toUpperCase()) {
+    throw new Error('Variable names must start with a letter')
+  }
 }
 
 const checkForDivByZero = (inst, args, env) => {
