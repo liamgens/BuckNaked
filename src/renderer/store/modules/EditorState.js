@@ -29,7 +29,7 @@ const getters = {
   },
   codeAsArray: () => {
     // Remove any empty lines as "code"
-    return state.code.split('\n').filter(x => !x.replace(/\s/g, '').length <= 0)
+    return state.code.split('\n')
   },
   code: () => {
     return state.code

@@ -15,7 +15,7 @@ export const execute = ({ inst, args }, env) => {
 }
 
 /* eslint-disable no-unused-vars */
-const sysout = output => {
+export const sysout = output => {
   store.commit('appendOutput', output)
 }
 /* eslint-enable no-unused-vars */
