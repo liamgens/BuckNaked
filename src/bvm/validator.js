@@ -39,7 +39,6 @@ export const validateDest = (dest, inst) => {
 }
 
 const checkForDivByZero = (inst, args, env) => {
-  console.log('oink')
   if (
     (inst === 'div' || inst === 'mod') &&
     (actualValueOf(args[1], env) === '0' ||
