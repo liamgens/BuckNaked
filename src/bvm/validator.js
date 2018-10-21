@@ -95,7 +95,7 @@ export const validate = ({ inst, args }, env) => {
     if (getType(args[0]) === 'name') {
       throw new Error(`Cannot print ${args[0]} because it has not been assigned a value`)
     }
-    if (args[0].charAt(0) === '"' && args[0].charAt(args[0].length - 1) === '"') {
+    if ((getType(args[0]) === 'string') && (args[0].charAt(0) === '"' && args[0].charAt(args[0].length - 1) === '"')) {
       args[0] = args[0].slice(1, args[0].length - 1)
     }
   }
