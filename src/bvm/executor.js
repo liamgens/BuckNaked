@@ -9,7 +9,7 @@ export const sysout = output => {
 /* eslint-enable no-unused-vars */
 export const execute = ({ inst, args }, env) => {
   let eventBus = EventBus
-  eventBus.$emit('gfxClear')
+  eventBus.$emit('gfxNOP')
 
   let expr = instructions[inst].expr
 
