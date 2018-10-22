@@ -1,4 +1,4 @@
-# buck-naked
+# Buck Naked 
 
 > An interpreted language with custom editor and runtime environment
 

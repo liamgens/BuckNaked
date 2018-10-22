@@ -7,7 +7,7 @@
       <span>Execute Code</span>
     </v-tooltip>
     <v-tooltip bottom>
-      <v-btn color="error" slot="activator" disabled>
+      <v-btn @click="stop" color="error" slot="activator" :disabled="!state.running">
         <v-icon light>stop</v-icon>
       </v-btn>
       <span>Stop Execution</span>
@@ -39,14 +39,34 @@
 
 <script>
 import { saveToFile } from '../../bvm/utils.js'
+import { interpreter } from '../../bvm/interpreter'
+import { Environment } from '../../bvm/environment'
+import { EventBus } from '../main.js'
 
 export default {
+  data: function () {
+    return {
+      state: {
+        running: false
+      }
+    }
+  },
   methods: {
     run: function () {
+      this.$store.commit('clearOutput')
+      EventBus.$emit('gfxClear')
       this.$store.commit('editFileContents', this.$store.getters.code)
+      this.state.running = true
+
+      try {
+        interpreter(this.$store.getters.codeAsArray, [new Environment({scope: {}, functions: {}})])
+      } catch (error) { }
+
+      this.state.running = false
     },
     clear: function () {
-      this.$store.commit('editFileContents', '')
+      this.$store.commit('clearOutput')
+      EventBus.$emit('gfxClear')
     },
     save: function (filename) {
       saveToFile(this.$store.getters.code, filename)
@@ -62,6 +82,9 @@ export default {
     },
     upload: function () {
       document.getElementById('fileToLoad').click()
+    },
+    stop: function () {
+      this.state.running = false
     }
   }
 }
