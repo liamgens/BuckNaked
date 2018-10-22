@@ -18,16 +18,27 @@
       </v-btn>
       <span>Clear Console Output</span>
     </v-tooltip>
+
     <v-tooltip bottom>
-      <v-btn color="blue-grey" slot="activator" disabled>
+      <v-btn id="uploadButton" color="blue-grey" @click="upload" slot="activator">
         <v-icon light>cloud_upload</v-icon>
       </v-btn>
       <span>Upload File</span>
     </v-tooltip>
+    <v-tooltip bottom>
+      <v-btn @click="save" color="warning" slot="activator">
+        <v-icon light>save</v-icon>
+      </v-btn>
+      <span>Saves Editor Content</span>
+    </v-tooltip>
+
+    <input type="file" id="fileToLoad" @change="load" hidden>
+  
   </div>
 </template>
 
 <script>
+import { saveToFile } from '../../bvm/utils.js'
 import { interpreter } from '../../bvm/interpreter'
 import { Environment } from '../../bvm/environment'
 import { EventBus } from '../main.js'
@@ -56,6 +67,21 @@ export default {
     clear: function () {
       this.$store.commit('clearOutput')
       EventBus.$emit('gfxClear')
+    },
+    save: function (filename) {
+      saveToFile(this.$store.getters.code, filename)
+    },
+    load: function (event) {
+      let files = event.target.files
+      let reader = new FileReader()
+      reader.readAsText(files[0], 'UTF-8')
+      reader.onload = file => {
+        this.$store.commit('editCode', file.target.result)
+      }
+      document.getElementById('fileToLoad').value = ''
+    },
+    upload: function () {
+      document.getElementById('fileToLoad').click()
     },
     stop: function () {
       this.state.running = false
