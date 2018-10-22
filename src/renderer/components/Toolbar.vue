@@ -67,8 +67,8 @@ export default {
       this.$store.commit('clearOutput')
       EventBus.$emit('gfxClear')
     },
-    save: function (filename) {
-      saveToFile(this.$store.getters.code, filename)
+    save: function () {
+      saveToFile(this.$store.getters.code, 'code')
     },
     load: function (event) {
       let files = event.target.files

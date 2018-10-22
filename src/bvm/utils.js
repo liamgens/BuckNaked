@@ -1,13 +1,13 @@
+import { remote } from 'electron'
+import path from 'path'
+
 const fs = require('fs')
 
-// SAVE FUNCTION
-export function saveToFile (code, theFilename) {
-  const fileName = theFilename
-  // WRITES TO FILE
+export function saveToFile (code, filename) {
   const data = code + '\n'
-  fs.writeFile(fileName + '.buck', data, err => {
+  const downloads = remote.app.getPath('downloads')
+  const file = path.join(downloads, `${filename}.buck`)
+  fs.writeFile(file, data, err => {
     if (err) throw err
-    console.log(data)
-    console.log('The file has been saved!')
   })
 }
