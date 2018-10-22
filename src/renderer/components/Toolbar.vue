@@ -20,7 +20,7 @@
     </v-tooltip>
 
     <v-tooltip bottom>
-      <v-btn color="blue-grey" @click="load" slot="activator">
+      <v-btn id="uploadButton" color="blue-grey" @click="upload" slot="activator">
         <v-icon light>cloud_upload</v-icon>
       </v-btn>
       <span>Upload File</span>
@@ -32,19 +32,13 @@
       <span>Saves Editor Content</span>
     </v-tooltip>
 
-    <!-- JANK BUTTONS-->
-    <div>
-      <input type="file" id="fileToSave" @change="onFileChange">
-    </div>
-    <div>
-      <input type="file" id="fileToLoad" @change="onFileChange">
-    </div>
-    <!-- JANK BUTTONS-->
+    <input type="file" id="fileToLoad" @change="load" hidden>
+  
   </div>
 </template>
 
 <script>
-import { saveToFile, loadFile } from '../../bvm/utils.js'
+import { saveToFile } from '../../bvm/utils.js'
 
 export default {
   methods: {
@@ -54,24 +48,20 @@ export default {
     clear: function () {
       this.$store.commit('editFileContents', '')
     },
-    save: function (theFilename) {
-      saveToFile(this.$store.getters.code, theFilename)
+    save: function (filename) {
+      saveToFile(this.$store.getters.code, filename)
     },
-    load: function (theFilename) {
-      this.$store.commit('editCode', loadFile(theFilename))
+    load: function (event) {
+      let files = event.target.files
+      let reader = new FileReader()
+      reader.readAsText(files[0], 'UTF-8')
+      reader.onload = file => {
+        this.$store.commit('editCode', file.target.result)
+      }
+      document.getElementById('fileToLoad').value = ''
     },
-
-    // HELPER FUNCTION
-    // MAY TAKE AWAY NEED FOR SAVE AND LOAD FUNCTION
-    onFileChange: function (e) {
-      var files = e.target.files || e.dataTransfer.files
-      console.log(files.value)
-      if (files.id === 'fileToSave') {
-        saveToFile(this.$store.getters.code, files.value)
-      }
-      if (files.id === 'fileToLoad') {
-        this.$store.commit('editCode', loadFile(files.value))
-      }
+    upload: function () {
+      document.getElementById('fileToLoad').click()
     }
   }
 }
