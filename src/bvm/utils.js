@@ -1,9 +1,8 @@
 const fs = require('fs')
 
 // SAVE FUNCTION
-export function saveToFile (code) {
-  // POPUP WINDOW THAT ASKS FOR FILE NAME
-  const fileName = 'yourCode'
+export function saveToFile (code, theFilename) {
+  const fileName = theFilename
   // WRITES TO FILE
   const data = code + '\n'
   fs.writeFile(fileName + '.buck', data, err => {
