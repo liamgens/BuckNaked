@@ -40,6 +40,7 @@ function inserted (el) {
   })
 
   EventBus.$on('gfxText', function (x, y, color, text) {
+    console.log(x, y, color, text)
     drawText(x, y, color, text)
   })
 }

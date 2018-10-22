@@ -47,5 +47,10 @@
     "arg_count": 1,
     "arg_types": ["any"],
     "expr": "sysout(args[0])"
+  },
+  "text": {
+    "arg_count": 4,
+    "arg_types": ["num", "num", "string", "string"],
+    "expr": "eventBus.$emit('gfxText', args[0], args[1], args[2], args[3])"
   }
 }
