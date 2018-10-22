@@ -47,5 +47,20 @@
     "arg_count": 1,
     "arg_types": ["any"],
     "expr": "sysout(args[0])"
+  },
+  "text": {
+    "arg_count": 4,
+    "arg_types": ["num", "num", "string", "string"],
+    "expr": "eventBus.$emit('gfxText', args[0], args[1], args[2], args[3])"
+  },
+  "recto": {
+    "arg_count": 5,
+    "arg_types": ["num", "num", "num", "num", "string"],
+    "expr": "eventBus.$emit('gfxOutlineRect', args[0], args[1], args[2], args[3], args[4])"
+  },
+  "rectf": {
+    "arg_count": 5,
+    "arg_types": ["num", "num", "num", "num", "string"],
+    "expr": "eventBus.$emit('gfxFillRect', args[0], args[1], args[2], args[3], args[4])"
   }
 }
