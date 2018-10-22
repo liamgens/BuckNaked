@@ -31,6 +31,8 @@ function inserted (el) {
     clear()
   })
 
+  EventBus.$on('gfxNOP', () => {})
+
   EventBus.$on('gfxFillRect', function (x, y, width, height, color) {
     drawFillRect(x, y, width, height, color)
   })

@@ -60,6 +60,22 @@ const actualValueOf = (arg, env) => {
   return actualValue
 }
 
+const getPrintArgs = (inst, args, env) => {
+  if (!('dest' in instructions[inst]) && !('name' in instructions[inst])) {
+    for (var i = 0; i < args.length; i++) {
+      if (instructions[inst].arg_types[i] === 'string' || instructions[inst].arg_types[i] === 'any') {
+        args[i] = actualValueOf(args[i], env)
+        if (getType(args[i]) === 'name') {
+          throw new Error(`Cannot print ${args[i]} because it has not been assigned a value`)
+        }
+        if ((getType(args[i]) === 'string') && (args[i].charAt(0) === '"' && args[i].charAt(args[i].length - 1) === '"')) {
+          args[i] = args[i].slice(1, args[i].length - 1)
+        }
+      }
+    }
+  }
+}
+
 export const validate = ({ inst, args }, env) => {
   checkForDivByZero(inst, args, env)
   if ('dest' in instructions[inst]) {
@@ -90,15 +106,8 @@ export const validate = ({ inst, args }, env) => {
       args[i] = actualValueOf(args[i], env)
     }
   }
-  if (inst === 'print') {
-    args[0] = actualValueOf(args[0], env)
-    if (getType(args[0]) === 'name') {
-      throw new Error(`Cannot print ${args[0]} because it has not been assigned a value`)
-    }
-    if ((getType(args[0]) === 'string') && (args[0].charAt(0) === '"' && args[0].charAt(args[0].length - 1) === '"')) {
-      args[0] = args[0].slice(1, args[0].length - 1)
-    }
-  }
+  getPrintArgs(inst, args, env)
+
   for (let i = 0; i < args.length; i++) {
     args[i] = convertType(args[i])
   }
