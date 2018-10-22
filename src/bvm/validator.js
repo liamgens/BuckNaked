@@ -41,7 +41,9 @@ export const validateDest = (dest, inst) => {
 const checkForDivByZero = (inst, args, env) => {
   if (
     (inst === 'div' || inst === 'mod') &&
-    actualValueOf(args[1], env) === '0'
+    (actualValueOf(args[1], env) === '0' ||
+    actualValueOf(args[1], env) === 0
+    )
   ) {
     throw new Error('Divide by zero error')
   }
@@ -60,13 +62,17 @@ const actualValueOf = (arg, env) => {
 
 export const validate = ({ inst, args }, env) => {
   checkForDivByZero(inst, args, env)
+  if ('dest' in instructions[inst]) {
+    validateDest(eval(instructions[inst].dest), inst)
+  }
+  if ('name' in instructions[inst]) {
+    validateDest(eval(instructions[inst].name), inst)
+  }
   if (destFirst.includes(inst)) {
-    validateDest(args[0], inst)
     if (args.length > 1) {
       args[1] = actualValueOf(args[1], env)
     }
   } else {
-    validateDest(args[args.length - 1], inst)
     let argsWithoutDest = []
     for (let i = 0; i < args.length - 1; i++) {
       argsWithoutDest.push(args[i])
@@ -84,7 +90,15 @@ export const validate = ({ inst, args }, env) => {
       args[i] = actualValueOf(args[i], env)
     }
   }
-
+  if (inst === 'print') {
+    args[0] = actualValueOf(args[0], env)
+    if (getType(args[0]) === 'name') {
+      throw new Error(`Cannot print ${args[0]} because it has not been assigned a value`)
+    }
+    if ((getType(args[0]) === 'string') && (args[0].charAt(0) === '"' && args[0].charAt(args[0].length - 1) === '"')) {
+      args[0] = args[0].slice(1, args[0].length - 1)
+    }
+  }
   for (let i = 0; i < args.length; i++) {
     args[i] = convertType(args[i])
   }
