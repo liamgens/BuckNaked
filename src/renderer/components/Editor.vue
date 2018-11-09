@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="editorPanel">
-      <textarea v-model="code" id="editor" contenteditable></textarea>
+      <textarea id="editor" v-model="codeDisplay" contenteditable></textarea>
     </div>
     <div id="lineNumberPanel">
       <LineNumbers style="text-align: right;"></LineNumbers>
@@ -17,20 +17,13 @@ export default {
     LineNumbers
   },
   computed: {
-    code: {
+    codeDisplay: {
       get () {
-        return this.$store.state.code
+        return this.$store.getters.code
       },
       set (value) {
         this.$store.commit('editCode', value)
       }
-    },
-    test: function () {
-      let lineNumbers = ''
-      for (let i = 0; i < this.$store.getters.numberOfLines; i++) {
-        lineNumbers += i + 1 + '<br />'
-      }
-      return lineNumbers
     }
   },
   mounted: function () {
@@ -38,7 +31,6 @@ export default {
     var s2 = document.getElementById('lineNumberPanel')
     function selectScroll1 (e) { s2.scrollTop = s1.scrollTop }
     function selectScroll2 (e) { s1.scrollTop = s2.scrollTop }
-
     s1.addEventListener('scroll', selectScroll1, false)
     s2.addEventListener('scroll', selectScroll2, false)
   }
