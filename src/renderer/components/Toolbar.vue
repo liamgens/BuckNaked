@@ -32,6 +32,13 @@
       <span>Saves Editor Content</span>
     </v-tooltip>
 
+    <v-tooltip bottom>
+      <v-btn color="error" slot="activator">
+        <v-icon light>ballot</v-icon>
+      </v-btn>
+      <span>Open Achievement Window</span>
+    </v-tooltip>
+
     <input type="file" id="fileToLoad" @change="load" hidden>
   
   </div>
