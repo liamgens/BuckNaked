@@ -1,5 +1,5 @@
 <template>
   <v-layout row>
-    Test
+    <router-link to="/">Home</router-link>
   </v-layout>
 </template>
