@@ -144,13 +144,13 @@ describe('interpreter.js', () => {
     interpreter(code, envStack)
     expect(envStack[0].getVariable('y')).to.eql(true)
   })
-  it('test and good long', () => {
+  it('test or good long', () => {
     let envStack = [new Environment({ scope: {}, functions: {} })]
     let code = ['var x false', 'var y false', 'or y x y', 'or y y y']
     interpreter(code, envStack)
     expect(envStack[0].getVariable('y')).to.eql(false)
   })
-  it('test and operation throws error for wrong types and then error for wrong number of args', () => {
+  it('test or operation throws error for wrong types and then error for wrong number of args', () => {
     let envStack = [new Environment({ scope: {}, functions: {} })]
     let code = ['var x 1', 'var y 2', 'or y x y', 'or y y y']
     expect(() => interpreter(code, envStack)).to.throw(
@@ -159,6 +159,29 @@ describe('interpreter.js', () => {
     code = ['or y x true y', 'or y y y']
     expect(() => interpreter(code, envStack)).to.throw(
       'Expected 3 args but got 4'
+    )
+  })
+  it('test not good', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x true', 'var y', 'not x y']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('y')).to.eql(false)
+  })
+  it('test not good long', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x true', 'var y true', 'not y x', 'not x y']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('y')).to.eql(true)
+  })
+  it('test not operation throws error for wrong types and then error for wrong number of args', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x 1', 'var y 2', 'not y y', 'and y y y']
+    expect(() => interpreter(code, envStack)).to.throw(
+      'Operation and operand types did not match'
+    )
+    code = ['not y x y', 'and y y y']
+    expect(() => interpreter(code, envStack)).to.throw(
+      'Expected 2 args but got 3'
     )
   })
 })
