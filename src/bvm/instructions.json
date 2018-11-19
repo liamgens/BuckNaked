@@ -68,5 +68,11 @@
     "arg_types": ["bool", "bool"],
     "expr": "eval(args[0]) && eval(args[1])",
     "dest": "args[2]"
+  },
+  "or": {
+    "arg_count": 3,
+    "arg_types": ["bool", "bool"],
+    "expr": "eval(args[0]) || eval(args[1])",
+    "dest": "args[2]"
   }
 }
