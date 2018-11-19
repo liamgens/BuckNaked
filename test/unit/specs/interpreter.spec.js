@@ -184,4 +184,46 @@ describe('interpreter.js', () => {
       'Expected 2 args but got 3'
     )
   })
+  it('test declaring function inside function throws error', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x true', 'fn y', 'fn y', 'return']
+    expect(() => interpreter(code, envStack)).to.throw(
+      'A function cannot be declared inside of a function declaration'
+    )
+  })
+  it('test declaring function bad EOF', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x true', 'fn y', 'var x']
+    expect(() => interpreter(code, envStack)).to.throw(
+      'Error: End of file reached while still in function declaration'
+    )
+  })
+  it('test declaring function good', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x true', 'fn y',
+      'var tinyTeen',
+      'set tinyTeen 9',
+      'var richie',
+      'mul tinyTeen -8 richie',
+      'var bustyRedhead -1',
+      'var BBW 10',
+      'mul bustyRedhead BBW BBW',
+      'mul bustyRedhead BBW BBW',
+      'mul bustyRedhead BBW BBW',
+      'mul bustyRedhead BBW BBW',
+      'return']
+    interpreter(code, envStack)
+    expect(envStack[0].getFunction('y').code).to.eql([
+      'var tinyTeen',
+      'set tinyTeen 9',
+      'var richie',
+      'mul tinyTeen -8 richie',
+      'var bustyRedhead -1',
+      'var BBW 10',
+      'mul bustyRedhead BBW BBW',
+      'mul bustyRedhead BBW BBW',
+      'mul bustyRedhead BBW BBW',
+      'mul bustyRedhead BBW BBW'
+    ])
+  })
 })
