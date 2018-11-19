@@ -77,6 +77,9 @@ const getPrintArgs = (inst, args, env) => {
 }
 
 export const validate = ({ inst, args }, env) => {
+  if (inst === 'fn' || inst === 'fnParse') {
+    return { inst, args }
+  }
   checkForDivByZero(inst, args, env)
   if ('dest' in instructions[inst]) {
     validateDest(eval(instructions[inst].dest), inst)

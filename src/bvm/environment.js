@@ -33,18 +33,23 @@ export class Environment {
     }
     throw new Error(`Variable ${name} not recognized.`)
   }
-  addFunction (name, code) {
+  addFunction (name, fn) {
     if (name in this.functions) {
       throw new Error(`Function ${name} already exists.`)
     } else if (name in this.scope) {
       throw new Error(`Variable ${name} already exists.`)
     }
-    this.functions[name] = code
+    this.functions[name] = fn
   }
   getFunction (name) {
     if (name in this.functions) {
       return this.functions[name]
     }
     throw new Error(`Function ${name} not recognized.`)
+  }
+  updateFunction (name, code) {
+    if (name in this.functions) {
+      this.functions[name].code = this.functions[name].code.concat([code])
+    }
   }
 }

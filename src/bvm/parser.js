@@ -10,3 +10,7 @@ export const parse = line => {
 
   return args
 }
+
+export const functionParse = (line, name) => {
+  return ['fnParse', name, line]
+}

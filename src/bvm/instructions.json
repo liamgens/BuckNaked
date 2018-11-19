@@ -80,5 +80,13 @@
     "arg_types": ["bool"],
     "expr": "!eval(args[0])",
     "dest": "args[1]"
+  },
+  "fn": {
+    "expr": "args[0]"
+  },
+  "fnParse": {
+    "arg_count": 1,
+    "arg_types": "any",
+    "expr": "env.updateFunction(args[0], args[1])"
   }
 }
