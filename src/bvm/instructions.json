@@ -62,5 +62,11 @@
     "arg_count": 5,
     "arg_types": ["num", "num", "num", "num", "string"],
     "expr": "eventBus.$emit('gfxFillRect', args[0], args[1], args[2], args[3], args[4])"
+  },
+  "and": {
+    "arg_count": 3,
+    "arg_types": ["bool", "bool"],
+    "expr": "eval(args[0]) && eval(args[1])",
+    "dest": "args[2]"
   }
 }

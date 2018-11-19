@@ -115,4 +115,27 @@ describe('interpreter.js', () => {
       'set operation requires a destination'
     )
   })
+  it('test and good', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x true', 'var y false', 'and y x y']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('y')).to.eql(false)
+  })
+  it('test and good long', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x true', 'var y true', 'and y x y', 'and y y y']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('y')).to.eql(true)
+  })
+  it('test and operation throws error for wrong types and then error for wrong number of args', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x 1', 'var y 2', 'and y x y', 'and y y y']
+    expect(() => interpreter(code, envStack)).to.throw(
+      'Operation and operand types did not match'
+    )
+    code = ['and y x true y', 'and y y y']
+    expect(() => interpreter(code, envStack)).to.throw(
+      'Expected 3 args but got 4'
+    )
+  })
 })
