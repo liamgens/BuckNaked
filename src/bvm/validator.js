@@ -49,7 +49,7 @@ const checkForDivByZero = (inst, args, env) => {
   }
 }
 
-const actualValueOf = (arg, env) => {
+export const actualValueOf = (arg, env) => {
   var actualValue = arg
   if (getType(arg) === 'name') {
     try {
