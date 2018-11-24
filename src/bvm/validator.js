@@ -1,7 +1,7 @@
 import { getType, convertType } from './types'
 
 const instructions = require('./instructions')
-const destFirst = ['var', 'set']
+const destFirst = ['var', 'set', 'else']
 // const keywords = ['var', ]
 
 export const getArgTypes = (args, env) => {
@@ -56,7 +56,6 @@ export const actualValueOf = (arg, env) => {
       actualValue = env.getVariable(arg)
     } catch (err) {}
   }
-
   return actualValue
 }
 
@@ -91,6 +90,8 @@ export const validate = ({ inst, args }, env) => {
     if (args.length > 1) {
       args[1] = actualValueOf(args[1], env)
     }
+  } else if (inst === 'while' || inst === 'if') {
+    args[0] = actualValueOf(args[0], env)
   } else {
     let argsWithoutDest = []
     for (let i = 0; i < args.length - 1; i++) {

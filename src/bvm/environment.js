@@ -1,7 +1,15 @@
 export class Environment {
   constructor (parentEnv) {
-    this.scope = parentEnv.scope
-    this.functions = parentEnv.functions
+    this.scope = {}
+    this.functions = {}
+    for (var s in parentEnv.scope) {
+      this.scope[s] = parentEnv.scope[s]
+    }
+    for (var f in parentEnv.functions) {
+      this.functions[f] = parentEnv.functions[f]
+    }
+    this.returnLine = undefined
+    this.doElse = undefined
   }
   getScope () {
     return this.scope
@@ -51,5 +59,11 @@ export class Environment {
     if (name in this.functions) {
       this.functions[name].code = this.functions[name].code.concat([code])
     }
+  }
+  setReturnLine (line) {
+    this.returnLine = line
+  }
+  setDoElse (ifWasSkipped) {
+    this.doElse = ifWasSkipped
   }
 }

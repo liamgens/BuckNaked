@@ -94,5 +94,19 @@
     "arg_count": 1,
     "arg_types": "any",
     "expr": "env.updateFunction(args[0], args[1])"
+  },
+  "if": {
+    "arg_count": 1,
+    "arg_types": "bool",
+    "expr": "args[0]"
+  },
+  "while": {
+    "arg_count": 1,
+    "arg_types": "bool",
+    "expr": "args[0]"
+  },
+  "else": {
+    "arg_count": 0,
+    "arg_types": "any"
   }
 }

@@ -19,7 +19,9 @@ export const execute = ({ inst, args }, env) => {
     // Check that the dest variable exists in the scope
     env.getVariable(dest)
     env.setVariable(dest, eval(expr))
-  } else if (inst === 'fn') {
+  } else if (inst === 'fn' || inst === 'while' || inst === 'if') {
+    console.log('ENTEREING  LOOP ! ')
+    console.log(args[0])
     return eval(expr)
   } else {
     eval(expr)
