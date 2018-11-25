@@ -41,6 +41,7 @@ export const interpreter = (code, env, currentEnv = 0) => {
         } else if (args[0] === 'call') {
           call(code, functionName, env, i, currentEnv, args)
         } else if (args[0] === 'while' || args[0] === 'if') {
+          console.log('HRRR')
           i = conditional(code, env, i, currentEnv, args)
           currentEnv = currentEnv + 1
         } else if (args[0] === 'end' || args[0] === 'else') {
@@ -151,7 +152,7 @@ const conditional = (code, env, i, currentEnv, args) => {
 
   // ADD LOGIC FOR ELSE and END and ADD TO MAIN FUNCTION
   let enterLoop = execute(validate(syntax(parse(code[i])), env[currentEnv]), env[currentEnv])
-  if (enterLoop === 'true') {
+  if (enterLoop === 'true' || enterLoop === true) {
     // conditional evaluates to true
     currentEnv = enterNewBlock(env, currentEnv)
     if (args[0] === 'while') {
