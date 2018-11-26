@@ -23,3 +23,12 @@ export const execute = ({ inst, args }, env) => {
     eval(expr)
   }
 }
+
+export const plotAxes = (eventBus) => {
+  for (let i = 0; i < 256; i++) {
+    eventBus.$emit('gfxFillRect', i, 128, 1, 1, 'white')
+  }
+  for (let i = 0; i < 256; i++) {
+    eventBus.$emit('gfxFillRect', 128, i, 1, 1, 'aquamarine')
+  }
+}

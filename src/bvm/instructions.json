@@ -81,6 +81,16 @@
     "arg_types": ["num", "num", "num", "num", "string"],
     "expr": "eventBus.$emit('gfxFillRect', args[0], args[1], args[2], args[3], args[4])"
   },
+  "plot": {
+    "arg_count": 3,
+    "arg_types": ["num", "num", "string"],
+    "expr": "eventBus.$emit('gfxFillRect', 128 + args[0], 128 - args[1], 3, 3, args[2])"
+  },
+  "plotAxes": {
+    "arg_count": 0,
+    "arg_types": [],
+    "expr": "plotAxes(eventBus)"
+  },
   "and": {
     "arg_count": 3,
     "arg_types": ["bool", "bool"],
