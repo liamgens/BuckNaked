@@ -196,77 +196,6 @@ describe('interpreter.js', () => {
       'Expected 2 args but got 3'
     )
   })
-<<<<<<< HEAD
-  it('test leq good true', () => {
-    let envStack = [new Environment({ scope: {}, functions: {} })]
-    let code = ['var x 1', 'var y 2', 'leq x y x']
-    interpreter(code, envStack)
-    expect(envStack[0].getVariable('x')).to.eql(true)
-  })
-  it('test leq good false', () => {
-    let envStack = [new Environment({ scope: {}, functions: {} })]
-    let code = ['var x 1', 'var y 2', 'leq y x x']
-    interpreter(code, envStack)
-    expect(envStack[0].getVariable('x')).to.eql(false)
-  })
-  it('test leq operation throws error for wrong types and then error for wrong number of args', () => {
-    let envStack = [new Environment({ scope: {}, functions: {} })]
-    let code = ['var x true', 'var y 2', 'leq x y y']
-    expect(() => interpreter(code, envStack)).to.throw(
-      'Operation and operand types did not match'
-    )
-    code = ['leq x y', 'and y y y']
-    expect(() => interpreter(code, envStack)).to.throw(
-      'Expected 3 args but got 2'
-    )
-  })
-  it('test geq good false', () => {
-    let envStack = [new Environment({ scope: {}, functions: {} })]
-    let code = ['var x 1', 'var y 2', 'geq x y x']
-    interpreter(code, envStack)
-    expect(envStack[0].getVariable('x')).to.eql(false)
-  })
-  it('test geq good true', () => {
-    let envStack = [new Environment({ scope: {}, functions: {} })]
-    let code = ['var x 1', 'var y 2', 'geq y x x']
-    interpreter(code, envStack)
-    expect(envStack[0].getVariable('x')).to.eql(true)
-  })
-  it('test geq operation throws error for wrong types and then error for wrong number of args', () => {
-    let envStack = [new Environment({ scope: {}, functions: {} })]
-    let code = ['var x true', 'var y 2', 'geq x y y']
-    expect(() => interpreter(code, envStack)).to.throw(
-      'Operation and operand types did not match'
-    )
-    code = ['geq x y', 'and y y y']
-    expect(() => interpreter(code, envStack)).to.throw(
-      'Expected 3 args but got 2'
-    )
-  })
-  it('test equals good false', () => {
-    let envStack = [new Environment({ scope: {}, functions: {} })]
-    let code = ['var x 1', 'var y 2', 'equals x y x']
-    interpreter(code, envStack)
-    expect(envStack[0].getVariable('x')).to.eql(false)
-  })
-  it('test equals good true', () => {
-    let envStack = [new Environment({ scope: {}, functions: {} })]
-    let code = ['var x 1', 'var y 1', 'equals y x x']
-    interpreter(code, envStack)
-    expect(envStack[0].getVariable('x')).to.eql(true)
-  })
-  it('test geq good true string', () => {
-    let envStack = [new Environment({ scope: {}, functions: {} })]
-    let code = ['var x "oink"', 'var y "oink"', 'equals x y x']
-    interpreter(code, envStack)
-    expect(envStack[0].getVariable('x')).to.eql(true)
-  })
-  it('test geq good true boolean', () => {
-    let envStack = [new Environment({ scope: {}, functions: {} })]
-    let code = ['var x true', 'var y true', 'equals y x x']
-    interpreter(code, envStack)
-    expect(envStack[0].getVariable('x')).to.eql(true)
-=======
   // //////////////////////////////////////////////////////////////////////
   // FUNCTIONS TESTS
   // //////////////////////////////////////////////////////////////////////
@@ -398,6 +327,5 @@ describe('interpreter.js', () => {
     expect(() => interpreter(code, envStack)).to.throw(
       'Incorrect number of parameters for function y'
     )
->>>>>>> Functions#15
   })
 })
