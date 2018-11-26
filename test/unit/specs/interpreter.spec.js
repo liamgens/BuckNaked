@@ -115,4 +115,143 @@ describe('interpreter.js', () => {
       'set operation requires a destination'
     )
   })
+  it('test and good', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x true', 'var y false', 'and y x y']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('y')).to.eql(false)
+  })
+  it('test and good long', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x true', 'var y true', 'and y x y', 'and y y y']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('y')).to.eql(true)
+  })
+  it('test and operation throws error for wrong types and then error for wrong number of args', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x 1', 'var y 2', 'and y x y', 'and y y y']
+    expect(() => interpreter(code, envStack)).to.throw(
+      'Operation and operand types did not match'
+    )
+    code = ['and y x true y', 'and y y y']
+    expect(() => interpreter(code, envStack)).to.throw(
+      'Expected 3 args but got 4'
+    )
+  })
+  it('test or good', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x true', 'var y false', 'or y x y']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('y')).to.eql(true)
+  })
+  it('test or good long', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x false', 'var y false', 'or y x y', 'or y y y']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('y')).to.eql(false)
+  })
+  it('test or operation throws error for wrong types and then error for wrong number of args', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x 1', 'var y 2', 'or y x y', 'or y y y']
+    expect(() => interpreter(code, envStack)).to.throw(
+      'Operation and operand types did not match'
+    )
+    code = ['or y x true y', 'or y y y']
+    expect(() => interpreter(code, envStack)).to.throw(
+      'Expected 3 args but got 4'
+    )
+  })
+  it('test not good', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x true', 'var y', 'not x y']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('y')).to.eql(false)
+  })
+  it('test not good long', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x true', 'var y true', 'not y x', 'not x y']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('y')).to.eql(true)
+  })
+  it('test not operation throws error for wrong types and then error for wrong number of args', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x 1', 'var y 2', 'not y y', 'and y y y']
+    expect(() => interpreter(code, envStack)).to.throw(
+      'Operation and operand types did not match'
+    )
+    code = ['not y x y', 'and y y y']
+    expect(() => interpreter(code, envStack)).to.throw(
+      'Expected 2 args but got 3'
+    )
+  })
+  it('test leq good true', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x 1', 'var y 2', 'leq x y x']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('x')).to.eql(true)
+  })
+  it('test leq good false', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x 1', 'var y 2', 'leq y x x']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('x')).to.eql(false)
+  })
+  it('test leq operation throws error for wrong types and then error for wrong number of args', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x true', 'var y 2', 'leq x y y']
+    expect(() => interpreter(code, envStack)).to.throw(
+      'Operation and operand types did not match'
+    )
+    code = ['leq x y', 'and y y y']
+    expect(() => interpreter(code, envStack)).to.throw(
+      'Expected 3 args but got 2'
+    )
+  })
+  it('test geq good false', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x 1', 'var y 2', 'geq x y x']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('x')).to.eql(false)
+  })
+  it('test geq good true', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x 1', 'var y 2', 'geq y x x']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('x')).to.eql(true)
+  })
+  it('test geq operation throws error for wrong types and then error for wrong number of args', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x true', 'var y 2', 'geq x y y']
+    expect(() => interpreter(code, envStack)).to.throw(
+      'Operation and operand types did not match'
+    )
+    code = ['geq x y', 'and y y y']
+    expect(() => interpreter(code, envStack)).to.throw(
+      'Expected 3 args but got 2'
+    )
+  })
+  it('test equals good false', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x 1', 'var y 2', 'equals x y x']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('x')).to.eql(false)
+  })
+  it('test equals good true', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x 1', 'var y 1', 'equals y x x']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('x')).to.eql(true)
+  })
+  it('test geq good true string', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x "oink"', 'var y "oink"', 'equals x y x']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('x')).to.eql(true)
+  })
+  it('test geq good true boolean', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x true', 'var y true', 'equals y x x']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('x')).to.eql(true)
+  })
 })
