@@ -8,7 +8,9 @@ export const syntax = args => {
     if (inst === 'var' && args.length === 2) {
       args.push(null)
     }
-
+    if (inst === 'fn' && args.length < 2) {
+      throw new Error(`Function requires a name`)
+    }
     let instSet = {
       inst: inst,
       args: args.slice(1)
@@ -17,7 +19,7 @@ export const syntax = args => {
     let expected = instructions[inst].arg_count
     let actual = instSet.args.length
 
-    if (expected === actual) {
+    if (expected === actual || args[0] === 'fn' || args[0] === 'fnParse') {
       return instSet
     }
 

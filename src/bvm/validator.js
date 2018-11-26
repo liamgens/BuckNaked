@@ -1,7 +1,7 @@
 import { getType, convertType } from './types'
 
 const instructions = require('./instructions')
-const destFirst = ['var', 'set']
+const destFirst = ['var', 'set', 'else']
 // const keywords = ['var', ]
 
 export const getArgTypes = (args, env) => {
@@ -49,14 +49,13 @@ const checkForDivByZero = (inst, args, env) => {
   }
 }
 
-const actualValueOf = (arg, env) => {
+export const actualValueOf = (arg, env) => {
   var actualValue = arg
   if (getType(arg) === 'name') {
     try {
       actualValue = env.getVariable(arg)
     } catch (err) {}
   }
-
   return actualValue
 }
 
@@ -77,6 +76,9 @@ const getPrintArgs = (inst, args, env) => {
 }
 
 export const validate = ({ inst, args }, env) => {
+  if (inst === 'fn' || inst === 'fnParse') {
+    return { inst, args }
+  }
   checkForDivByZero(inst, args, env)
   if ('dest' in instructions[inst]) {
     validateDest(eval(instructions[inst].dest), inst)
@@ -88,6 +90,8 @@ export const validate = ({ inst, args }, env) => {
     if (args.length > 1) {
       args[1] = actualValueOf(args[1], env)
     }
+  } else if (inst === 'while' || inst === 'if') {
+    args[0] = actualValueOf(args[0], env)
   } else {
     let argsWithoutDest = []
     for (let i = 0; i < args.length - 1; i++) {

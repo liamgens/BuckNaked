@@ -1,7 +1,15 @@
 export class Environment {
   constructor (parentEnv) {
-    this.scope = parentEnv.scope
-    this.functions = parentEnv.functions
+    this.scope = {}
+    this.functions = {}
+    for (var s in parentEnv.scope) {
+      this.scope[s] = parentEnv.scope[s]
+    }
+    for (var f in parentEnv.functions) {
+      this.functions[f] = parentEnv.functions[f]
+    }
+    this.returnLine = undefined
+    this.doElse = undefined
   }
   getScope () {
     return this.scope
@@ -33,18 +41,29 @@ export class Environment {
     }
     throw new Error(`Variable ${name} not recognized.`)
   }
-  addFunction (name, code) {
+  addFunction (name, fn) {
     if (name in this.functions) {
       throw new Error(`Function ${name} already exists.`)
     } else if (name in this.scope) {
       throw new Error(`Variable ${name} already exists.`)
     }
-    this.functions[name] = code
+    this.functions[name] = fn
   }
   getFunction (name) {
     if (name in this.functions) {
       return this.functions[name]
     }
     throw new Error(`Function ${name} not recognized.`)
+  }
+  updateFunction (name, code) {
+    if (name in this.functions) {
+      this.functions[name].code = this.functions[name].code.concat([code])
+    }
+  }
+  setReturnLine (line) {
+    this.returnLine = line
+  }
+  setDoElse (ifWasSkipped) {
+    this.doElse = ifWasSkipped
   }
 }

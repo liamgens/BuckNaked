@@ -1,6 +1,8 @@
 import { interpreter } from '../../../src/bvm/interpreter'
 import { Environment } from '../../../src/bvm/environment'
+import { actualValueOf } from '../../../src/bvm/validator'
 
+// eslint-disable spaced-comment
 describe('interpreter.js', () => {
   it('test add good', () => {
     let envStack = [new Environment({ scope: {}, functions: {} })]
@@ -115,6 +117,10 @@ describe('interpreter.js', () => {
       'set operation requires a destination'
     )
   })
+  // //////////////////////////////////////////////////////////////////////
+  // BOOLEAN ALGEBRA TESTS
+  // //////////////////////////////////////////////////////////////////////
+
   it('test and good', () => {
     let envStack = [new Environment({ scope: {}, functions: {} })]
     let code = ['var x true', 'var y false', 'and y x y']
@@ -141,6 +147,12 @@ describe('interpreter.js', () => {
   it('test or good', () => {
     let envStack = [new Environment({ scope: {}, functions: {} })]
     let code = ['var x true', 'var y false', 'or y x y']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('y')).to.eql(true)
+  })
+  it('test but good', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x true', 'var y false', 'but y x y']
     interpreter(code, envStack)
     expect(envStack[0].getVariable('y')).to.eql(true)
   })
@@ -184,6 +196,7 @@ describe('interpreter.js', () => {
       'Expected 2 args but got 3'
     )
   })
+<<<<<<< HEAD
   it('test leq good true', () => {
     let envStack = [new Environment({ scope: {}, functions: {} })]
     let code = ['var x 1', 'var y 2', 'leq x y x']
@@ -253,5 +266,138 @@ describe('interpreter.js', () => {
     let code = ['var x true', 'var y true', 'equals y x x']
     interpreter(code, envStack)
     expect(envStack[0].getVariable('x')).to.eql(true)
+=======
+  // //////////////////////////////////////////////////////////////////////
+  // FUNCTIONS TESTS
+  // //////////////////////////////////////////////////////////////////////
+
+  it('test declaring function inside function throws error', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x true', 'fn y', 'fn y', 'return']
+    expect(() => interpreter(code, envStack)).to.throw(
+      'A function cannot be declared inside of a function declaration'
+    )
+  })
+  it('test declaring function bad EOF', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x true', 'fn y', 'var x']
+    expect(() => interpreter(code, envStack)).to.throw(
+      'Error: End of file reached while still in function declaration'
+    )
+  })
+  it('test declaring function good', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x true', 'fn y',
+      'var tinyTeen',
+      'set tinyTeen 9',
+      'var richie',
+      'mul tinyTeen -8 richie',
+      'var bustyRedhead -1',
+      'var BBW 10',
+      'mul bustyRedhead BBW BBW',
+      'mul bustyRedhead BBW BBW',
+      'mul bustyRedhead BBW BBW',
+      'mul bustyRedhead BBW BBW',
+      'return']
+    interpreter(code, envStack)
+    expect(envStack[0].getFunction('y').code).to.eql([
+      'var tinyTeen',
+      'set tinyTeen 9',
+      'var richie',
+      'mul tinyTeen -8 richie',
+      'var bustyRedhead -1',
+      'var BBW 10',
+      'mul bustyRedhead BBW BBW',
+      'mul bustyRedhead BBW BBW',
+      'mul bustyRedhead BBW BBW',
+      'mul bustyRedhead BBW BBW',
+      'return'
+    ])
+  })
+  it('test call good, return value', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['fn y x z',
+      'add x z x',
+      'return x',
+      'var t',
+      'call y 1 2 t',
+      'var q t'
+    ]
+    interpreter(code, envStack)
+    expect(actualValueOf('q', envStack[0])).to.eql(3)
+  })
+  it('test call good, no return value', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['fn y x z',
+      'add x z x',
+      'return',
+      'var t',
+      'call y 1 2'
+    ]
+    interpreter(code, envStack)
+  })
+  it('test putting return command outside of a function throws error', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['fn y x z',
+      'add x z x',
+      'return',
+      'var t',
+      'call y 1 2',
+      'return'
+    ]
+    expect(() => interpreter(code, envStack)).to.throw(
+      '\'return\' statement cannot be used outside of a function'
+    )
+  })
+  it('test putting return command outside of a function throws error', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['fn y x z',
+      'add x z x',
+      'return',
+      'var t',
+      'call y 1 2',
+      'return'
+    ]
+    expect(() => interpreter(code, envStack)).to.throw(
+      '\'return\' statement cannot be used outside of a function'
+    )
+  })
+  it('test putting return command outside of a function throws error', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['fn y x z',
+      'add x z x',
+      'return',
+      'var t',
+      'call y 1 2',
+      'return'
+    ]
+    expect(() => interpreter(code, envStack)).to.throw(
+      '\'return\' statement cannot be used outside of a function'
+    )
+  })
+  it('test putting return command with more than one arguments bad', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['fn y x z',
+      'add x z x',
+      'return x y',
+      'var t',
+      'call y 1 2'
+    ]
+    expect(() => interpreter(code, envStack)).to.throw(
+      'a function can only return one value'
+    )
+  })
+  it('test calling function with incorrect amount of parameters', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['fn y x z',
+      'add x z x',
+      'return x',
+      'var t',
+      'call y 1 2 41 "oink"'
+    ]
+    expect(() => interpreter(code, envStack)).to.throw(
+      'Incorrect number of parameters for function y'
+    )
+>>>>>>> Functions#15
   })
 })
