@@ -12,14 +12,12 @@ export const parse = line => {
     if (tracking && !inString && currentChar === ' ') {
       tracking = false
       currentArg = ''
-      console.log('continue')
       continue
     } else if (currentChar !== ' ') {
       tracking = true
     }
 
     if (tracking) {
-      console.log(currentChar)
       currentArg += currentChar
       if (currentChar === '"') {
         inString = !inString

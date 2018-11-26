@@ -50,6 +50,7 @@ export default {
   padding-top: 5px;
   white-space: pre;
   overflow-x: scroll;
+  font-family: "Courier New", Courier, monospace;
 }
 
 #editorPanel {
