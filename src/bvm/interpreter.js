@@ -41,7 +41,6 @@ export const interpreter = (code, env, currentEnv = 0) => {
         } else if (args[0] === 'call') {
           call(code, functionName, env, i, currentEnv, args)
         } else if (args[0] === 'while' || args[0] === 'if') {
-          console.log('HRRR')
           i = conditional(code, env, i, currentEnv, args)
           currentEnv = currentEnv + 1
         } else if (args[0] === 'end' || args[0] === 'else') {

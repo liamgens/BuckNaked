@@ -51,7 +51,6 @@ describe('interpreter.js', () => {
     },
     functions: {} })]
     copyChangedEnvironmentVariables(envStack, 1)
-    console.log(JSON.stringify(envStack[0]))
     expect(JSON.stringify(envStack[0])).to.eql('{"scope":{"oink":"sploink","oink2":"oink"},"functions":{}}')
   })
   it('test cloning an Environment object', () => {
@@ -61,7 +60,6 @@ describe('interpreter.js', () => {
     },
     functions: {} })]
     enterNewBlock(envStack, 0)
-    console.log(JSON.stringify(envStack[1]))
     expect(JSON.stringify(envStack[1])).to.eql('{"scope":{"oink":"oink","oink2":"sploink"},"functions":{}}')
   })
   it('while loop single run good', () => {
