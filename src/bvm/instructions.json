@@ -31,6 +31,24 @@
     "dest": "args[2]",
     "div_by_zero": "args[1]"
   },
+  "leq": {
+    "arg_count": 3,
+    "arg_types": ["num", "num"],
+    "expr": "args[0] <= args[1]",
+    "dest": "args[2]"
+  },
+  "geq": {
+    "arg_count": 3,
+    "arg_types": ["num", "num"],
+    "expr": "args[0] >= args[1]",
+    "dest": "args[2]"
+  },
+  "equals": {
+    "arg_count": 3,
+    "arg_types": ["any", "any"],
+    "expr": "args[0] === args[1]",
+    "dest": "args[2]"
+  },
   "var": {
     "arg_count": 2,
     "arg_types": ["name", "any"],
