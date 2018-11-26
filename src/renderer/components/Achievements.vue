@@ -21,7 +21,7 @@
         :value="percentage"
         color="blue"
       >
-        <h1>{{ unlocked }}</h1>
+        <h1>{{ Math.round(percentage) }}%</h1>
       </v-progress-circular>
     </v-flex>
     <v-flex xs12>
