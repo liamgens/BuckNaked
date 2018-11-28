@@ -32,6 +32,15 @@
       <span>Saves Editor Content</span>
     </v-tooltip>
 
+    <router-link id="achievements" to="/achievements">
+      <v-tooltip bottom>
+        <v-btn color="error" slot="activator">
+          <v-icon light>ballot</v-icon>
+        </v-btn>
+        <span>Achievements</span>
+      </v-tooltip>
+    </router-link>
+    
     <input type="file" id="fileToLoad" @change="load" hidden>
   
   </div>
@@ -90,4 +99,7 @@ export default {
 </script>
 
 <style>
+#achievements {
+  color: rgba(0, 0, 0, 0);
+}
 </style>
