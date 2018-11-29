@@ -40,17 +40,17 @@
         <span>Achievements</span>
       </v-tooltip>
     </router-link>
-    
+
     <input type="file" id="fileToLoad" @change="load" hidden>
-  
   </div>
 </template>
 
 <script>
 import { saveToFile } from '../../bvm/utils.js'
-import { interpreter } from '../../bvm/interpreter'
+import { interpreter, getRanCommands } from '../../bvm/interpreter'
 import { Environment } from '../../bvm/environment'
 import { EventBus } from '../main.js'
+import { updateAchievements } from '../../bvm/achievements'
 
 export default {
   data: function () {
@@ -67,8 +67,13 @@ export default {
       this.$store.commit('editFileContents', this.$store.getters.code)
       this.state.running = true
       try {
-        interpreter(this.$store.getters.codeAsArray, [new Environment({scope: {}, functions: {}})])
-      } catch (error) { }
+        interpreter(this.$store.getters.codeAsArray, [
+          new Environment({ scope: {}, functions: {} })
+        ])
+        updateAchievements(getRanCommands(), false)
+      } catch (error) {
+        updateAchievements(getRanCommands(), true)
+      }
 
       this.state.running = false
     },
