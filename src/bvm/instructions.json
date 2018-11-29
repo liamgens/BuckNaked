@@ -81,6 +81,16 @@
     "arg_types": ["num", "num", "num", "num", "string"],
     "expr": "eventBus.$emit('gfxFillRect', args[0], args[1], args[2], args[3], args[4])"
   },
+  "plot": {
+    "arg_count": 3,
+    "arg_types": ["num", "num", "string"],
+    "expr": "eventBus.$emit('gfxFillRect', 128 + args[0], 127 - args[1], 2, 2, args[2])"
+  },
+  "plotAxes": {
+    "arg_count": 0,
+    "arg_types": [],
+    "expr": "plotAxes(eventBus)"
+  },
   "and": {
     "arg_count": 3,
     "arg_types": ["bool", "bool"],
@@ -93,10 +103,38 @@
     "expr": "eval(args[0]) || eval(args[1])",
     "dest": "args[2]"
   },
+  "but": {
+    "arg_count": 3,
+    "arg_types": ["bool", "bool"],
+    "expr": "eval(args[0]) || eval(args[1])",
+    "dest": "args[2]"
+  },
   "not": {
     "arg_count": 2,
     "arg_types": ["bool"],
     "expr": "!eval(args[0])",
     "dest": "args[1]"
+  },
+  "fn": {
+    "expr": "args[0]"
+  },
+  "fnParse": {
+    "arg_count": 1,
+    "arg_types": "any",
+    "expr": "env.updateFunction(args[0], args[1])"
+  },
+  "if": {
+    "arg_count": 1,
+    "arg_types": "bool",
+    "expr": "args[0]"
+  },
+  "while": {
+    "arg_count": 1,
+    "arg_types": "bool",
+    "expr": "args[0]"
+  },
+  "else": {
+    "arg_count": 0,
+    "arg_types": "any"
   }
 }

@@ -19,7 +19,18 @@ export const execute = ({ inst, args }, env) => {
     // Check that the dest variable exists in the scope
     env.getVariable(dest)
     env.setVariable(dest, eval(expr))
+  } else if (inst === 'fn' || inst === 'while' || inst === 'if') {
+    return eval(expr)
   } else {
     eval(expr)
+  }
+}
+
+export const plotAxes = (eventBus) => {
+  for (let i = 0; i < 256; i++) {
+    eventBus.$emit('gfxFillRect', i, 128, 1, 1, 'white')
+  }
+  for (let i = 0; i < 256; i++) {
+    eventBus.$emit('gfxFillRect', 128, i, 1, 1, 'aquamarine')
   }
 }
