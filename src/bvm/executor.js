@@ -1,5 +1,6 @@
 import store from '../../src/renderer/store/index'
 import { EventBus } from '../renderer/main.js'
+import { updateRanCommands } from './interpreter.js'
 const instructions = require('./instructions')
 
 /* eslint-disable no-unused-vars */
@@ -12,7 +13,6 @@ export const execute = ({ inst, args }, env) => {
   eventBus.$emit('gfxNOP')
 
   let expr = instructions[inst].expr
-
   // If the instruction has a destination
   if ('dest' in instructions[inst]) {
     let dest = eval(instructions[inst].dest)
@@ -20,10 +20,12 @@ export const execute = ({ inst, args }, env) => {
     env.getVariable(dest)
     env.setVariable(dest, eval(expr))
   } else if (inst === 'fn' || inst === 'while' || inst === 'if') {
+    updateRanCommands(inst, args)
     return eval(expr)
   } else {
     eval(expr)
   }
+  updateRanCommands(inst, args)
 }
 
 export const plotAxes = (eventBus) => {

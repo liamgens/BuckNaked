@@ -5,18 +5,6 @@ import { execute, sysout } from './executor'
 import { Environment } from './environment.js'
 import { getType } from './types.js'
 
-// For while:
-// check condition, if true:
-// make new environment...
-// copy over all functions and variables
-// if false:
-// skip until end while has been reached
-// then,
-// run interpret
-// when reach 'end while'
-// pop environment
-// set 'i' to returnLine
-
 let ranCommands = []
 let errorHappened = false
 
@@ -30,7 +18,7 @@ export const interpreter = (code, env, currentEnv = 0) => {
     currentEnv = env.length - 1
     if (!code[i].replace(/\s/g, '').length <= 0) {
       try {
-        ranCommands.push(code[i])
+        // ranCommands.push(code[i])
         let args = parse(code[i])
         if (args[0] === 'fn') {
           if (buildingFunction) {
@@ -56,7 +44,6 @@ export const interpreter = (code, env, currentEnv = 0) => {
         }
       } catch (error) {
         sysout(`Error on line ${i + 1}: ${error.message}`)
-        ranCommands.pop()
         errorHappened = true
         throw error
       }
@@ -68,6 +55,14 @@ export const interpreter = (code, env, currentEnv = 0) => {
     throw new Error('Error: End of file reached while still in function declaration')
   }
   return returnVal
+}
+
+export const updateRanCommands = (inst, args) => {
+  let str = inst
+  for (let i = 0; i < args.length; ++i) {
+    str = str + ' ' + args[i]
+  }
+  ranCommands.push(str)
 }
 
 export const getRanCommands = () => {
@@ -175,11 +170,14 @@ const elseAndEnd = (code, env, i, currentEnv, args) => {
     if (args[0] === 'else') {
       throw new Error('Incorrect end to \'while\' block')
     } else {
+      ranCommands.push('end')
       i = env[currentEnv].returnLine - 1
     }
   } else {
     if (args[0] === 'else') {
       i = findEndOfBlock(code, env, i, currentEnv, 'while')
+    } else {
+      ranCommands.push('end')
     }
   }
   copyChangedEnvironmentVariables(env, currentEnv)

@@ -515,17 +515,21 @@ describe('interpreter.js', () => {
       'else',
       'set x false',
       'end',
-      'end'
+      'end',
+      'var z 1',
+      'add z z z'
     ]
     let expected = [
       'var x true',
       'var y false',
-      'if x',
-      'if y',
+      'if true',
+      'if false',
       'else',
       'set x false',
       'end',
-      'end'
+      'end',
+      'var z 1',
+      'add 1 1 z'
     ]
     interpreter(code, envStack)
     let returnedCode = getRanCommands()
@@ -551,7 +555,7 @@ describe('interpreter.js', () => {
     let expected = [
       'var x true',
       'var y false',
-      'if x'
+      'if true'
     ]
     try {
       interpreter(code, envStack)
