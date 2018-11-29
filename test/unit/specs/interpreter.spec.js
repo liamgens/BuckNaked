@@ -1,4 +1,4 @@
-import { interpreter, copyChangedEnvironmentVariables, enterNewBlock } from '../../../src/bvm/interpreter'
+import { interpreter, copyChangedEnvironmentVariables, enterNewBlock, getRanCommands } from '../../../src/bvm/interpreter'
 import { Environment } from '../../../src/bvm/environment'
 import { actualValueOf } from '../../../src/bvm/validator'
 
@@ -499,5 +499,67 @@ describe('interpreter.js', () => {
     interpreter(code, envStack)
     expect(actualValueOf('y', envStack[0])).to.eql('false')
     expect(actualValueOf('x', envStack[0])).to.eql('false')
+  })
+
+  // //////////////////////////////////////////////////////////////////////
+  // GETTING COMMANDS RAN TESTS
+  // //////////////////////////////////////////////////////////////////////
+  it('getting ran commands works with no errors', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = [
+      'var x true',
+      'var y false',
+      'if x',
+      'if y',
+      'set y true',
+      'else',
+      'set x false',
+      'end',
+      'end'
+    ]
+    let expected = [
+      'var x true',
+      'var y false',
+      'if x',
+      'if y',
+      'else',
+      'set x false',
+      'end',
+      'end'
+    ]
+    interpreter(code, envStack)
+    let returnedCode = getRanCommands()
+    console.log(returnedCode)
+    for (var i = 0; i < code.length; ++i) {
+      expect(expected[i]).to.eql(returnedCode[i])
+    }
+  })
+  it('getting ran commands works with error', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = [
+      'var x true',
+      'var y false',
+      'if x',
+      'div 0 0 x',
+      'if y',
+      'set y true',
+      'else',
+      'set x false',
+      'end',
+      'end'
+    ]
+    let expected = [
+      'var x true',
+      'var y false',
+      'if x'
+    ]
+    try {
+      interpreter(code, envStack)
+    } catch (e) {}
+    let returnedCode = getRanCommands()
+    console.log(returnedCode)
+    for (var i = 0; i < code.length; ++i) {
+      expect(expected[i]).to.eql(returnedCode[i])
+    }
   })
 })

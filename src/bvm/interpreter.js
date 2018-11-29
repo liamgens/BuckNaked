@@ -17,14 +17,20 @@ import { getType } from './types.js'
 // pop environment
 // set 'i' to returnLine
 
+let ranCommands = []
+let errorHappened = false
+
 export const interpreter = (code, env, currentEnv = 0) => {
   let buildingFunction = false
   let functionName = ''
   var returnVal
+  errorHappened = false
+  ranCommands = []
   for (let i = 0; i < code.length; i++) {
     currentEnv = env.length - 1
     if (!code[i].replace(/\s/g, '').length <= 0) {
       try {
+        ranCommands.push(code[i])
         let args = parse(code[i])
         if (args[0] === 'fn') {
           if (buildingFunction) {
@@ -50,14 +56,26 @@ export const interpreter = (code, env, currentEnv = 0) => {
         }
       } catch (error) {
         sysout(`Error on line ${i + 1}: ${error.message}`)
+        ranCommands.pop()
+        errorHappened = true
         throw error
       }
     }
   }
   if (buildingFunction) {
+    ranCommands.pop()
+    errorHappened = true
     throw new Error('Error: End of file reached while still in function declaration')
   }
   return returnVal
+}
+
+export const getRanCommands = () => {
+  return ranCommands
+}
+
+export const didErrorHappen = () => {
+  return errorHappened
 }
 
 const call = (code, functionName, env, i, currentEnv, args) => {
@@ -114,42 +132,6 @@ const doExecutes = (buildingFunction, code, functionName, env, i, currentEnv, ar
 }
 
 const conditional = (code, env, i, currentEnv, args) => {
-  // WHILE LOGIC:
-  // do execute/validate/syntax/parse logic
-  // syntax: check correct number of params
-  // validate: check correct type of params
-  // execute: return eval("args[0]")
-  // if true,
-  //    create new environment
-  //    set returnLine
-  //    copy env[n-2] to env[n-1]
-  // if false,
-  //    skip lines until 'end while' is reached
-  // END WHILE LOGIC:
-  // copy all values in current environment that were in the previous environment
-  // remove new environment
-  // set i to returnLine
-  //
-  // IF LOGIC:
-  // syntax: check correct number of params
-  // validate: check correct type of params
-  // execute: return eval("args[0]")
-  // if true,
-  //    create new environment
-  //    copy values from previous environment
-  // else,
-  //    skip to else
-  //    create new environment
-  //    copy values from previous environment
-  // if you come to an else:
-  // skip it
-
-  // OK TOTAL LOGIC:
-  // syntax, validate, execute as above.
-  // return a boolean which is, whether to go through loop or not
-  // ELSE:
-
-  // ADD LOGIC FOR ELSE and END and ADD TO MAIN FUNCTION
   let enterLoop = execute(validate(syntax(parse(code[i])), env[currentEnv]), env[currentEnv])
   if (enterLoop === 'true' || enterLoop === true) {
     // conditional evaluates to true
@@ -177,6 +159,7 @@ const findEndOfBlock = (code, env, i, currentEnv, type) => {
         throw new Error('Incorrect end to \'while\' block')
       } else {
         currentEnv = enterNewBlock(env, currentEnv)
+        ranCommands.push(argsInner[0])
         return x
       }
     } else if (argsInner[0] === 'end' || code[x] === 'end') {
