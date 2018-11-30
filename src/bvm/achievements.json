@@ -1,0 +1,12 @@
+{
+  "quickMAFS": {
+    "description": "2 + 2 is 4",
+    "locked": true,
+    "points": 10
+  },
+  "Variable King": {
+    "description": "Declared 1000 variables",
+    "locked": true,
+    "points": 20
+  }
+}

@@ -5,6 +5,7 @@ import 'vuetify/dist/vuetify.css'
 import App from './App'
 import router from './router'
 import store from './store'
+import { initAchievements } from '../bvm/achievements'
 
 Vue.use(Vuetify)
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
@@ -17,6 +18,7 @@ Vue.config.productionTip = false
 // And to subscribe to an event:
 // EventBus.$on('myEvent', function (eventArg) { })
 export const EventBus = new Vue()
+initAchievements()
 
 /* eslint-disable no-new */
 new Vue({
