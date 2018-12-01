@@ -27,7 +27,7 @@
     <v-flex xs12>
       <v-list>
          <v-list-tile
-            v-for="item in items"
+            v-for="item in achievements"
             :key="item.title"
           >
             <v-list-tile-action>
@@ -66,22 +66,31 @@ export default {
   computed: {
     total: function () {
       let total = 0
-      for (let i = 0; i < this.items.length; i++) {
-        total += this.items[i].points
+      for (let i = 0; i < this.achievements.length; i++) {
+        total += this.achievements[i].points
       }
       return total
     },
     unlocked: function () {
       let unlocked = 0
-      for (let i = 0; i < this.items.length; i++) {
-        if (this.items[i].locked === false) {
-          unlocked += this.items[i].points
+      for (let i = 0; i < this.achievements.length; i++) {
+        if (this.achievements[i].locked === false) {
+          unlocked += this.achievements[i].points
         }
       }
       return unlocked
     },
     percentage: function () {
       return (this.unlocked / this.total) * 100
+    },
+    achievements: function () {
+      let list = []
+      let json = JSON.parse(localStorage.getItem('achievements'))
+      for (const [key, value] of Object.entries(json)) {
+        console.log(key, value)
+        list.push({ locked: value.locked, title: key, description: value.description, points: value.points })
+      }
+      return list
     }
   }
 }
