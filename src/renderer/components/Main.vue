@@ -16,7 +16,22 @@
         </v-flex>
       </v-layout>
     </v-flex>
+      <v-snackbar
+        v-model="snackbar"
+        :right="true"
+        :top="true">
+
+        {{ achievement + " unlocked!" }}
+
+        <v-btn
+          color="pink"
+          flat
+          @click="snackbar = false">
+          Close
+        </v-btn>
+      </v-snackbar>
   </v-layout>
+  
 </template>
 
 <script>
@@ -26,6 +41,12 @@
   import Toolbar from './Toolbar.vue'
 
   export default {
+    data () {
+      return {
+        snackbar: false,
+        achievement: 'asdf'
+      }
+    },
     name: 'buck-naked',
     components: {
       Editor,

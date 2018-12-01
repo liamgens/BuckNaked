@@ -54,15 +54,6 @@
 
 <script>
 export default {
-  data () {
-    return {
-      items: [
-        { locked: false, title: 'Draw 1000 images', description: 'you did it', points: 10 },
-        { locked: true, title: 'Eat 1000 images', description: 'you did it', points: 20 },
-        { locked: true, title: 'Sleep 1000 images', description: 'you did it', points: 30 }
-      ]
-    }
-  },
   computed: {
     total: function () {
       let total = 0
