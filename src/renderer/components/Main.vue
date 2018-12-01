@@ -16,20 +16,21 @@
         </v-flex>
       </v-layout>
     </v-flex>
+    <router-link id="achievements" to="/achievements">
       <v-snackbar
         v-model="snackbar"
-        :right="true"
-        :top="true">
-
-        {{ achievement + " unlocked!" }}
-
+        :top="true"
+        :timeout="3000"
+        >
+          {{ achievements.join(', ') + " unlocked!" }} 
         <v-btn
-          color="pink"
+          color="blue"
           flat
           @click="snackbar = false">
           Close
         </v-btn>
       </v-snackbar>
+    </router-link>
   </v-layout>
   
 </template>
@@ -39,13 +40,20 @@
   import Output from './Output.vue'
   import Graphics from './Graphics.vue'
   import Toolbar from './Toolbar.vue'
+  import { EventBus } from '../main.js'
 
   export default {
     data () {
       return {
         snackbar: false,
-        achievement: 'asdf'
+        achievements: []
       }
+    },
+    created () {
+      EventBus.$on('unlockAchievement', achievements => {
+        this.achievements = achievements
+        this.snackbar = true
+      })
     },
     name: 'buck-naked',
     components: {
