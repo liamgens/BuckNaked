@@ -47,12 +47,22 @@ const unlockAchievement = (achievement, achievementsJustUnlocked) => {
 }
 
 const checkAchievement = (inst, achievementsJustUnlocked) => {
-  // quickMAFS
   if (inst.includes('add 2 2')) {
     unlockAchievement('quickMAFS', achievementsJustUnlocked)
   }
-  // Declare 1000 Variables
   if (checkCount('var') >= 1000) {
     unlockAchievement('Variable King', achievementsJustUnlocked)
+  }
+  if (checkCount('add') >= 1000) {
+    unlockAchievement('Preschool', achievementsJustUnlocked)
+  }
+  if (checkCount('sub') >= 1000) {
+    unlockAchievement('Elementary School', achievementsJustUnlocked)
+  }
+  if (checkCount('mul') >= 1000) {
+    unlockAchievement('Middle School', achievementsJustUnlocked)
+  }
+  if (checkCount('div') >= 1000) {
+    unlockAchievement('High School', achievementsJustUnlocked)
   }
 }

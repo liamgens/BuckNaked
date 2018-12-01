@@ -2,11 +2,31 @@
   "quickMAFS": {
     "description": "2 + 2 is 4",
     "locked": true,
-    "points": 10
+    "points": 20
   },
   "Variable King": {
     "description": "Declared 1000 variables",
     "locked": true,
     "points": 20
+  },
+  "Preschool": {
+    "description": "Add 1000 times",
+    "locked": true,
+    "points": 10
+  },
+  "Elementary School": {
+    "description": "Subtract 1000 times",
+    "locked": true,
+    "points": 10
+  },
+  "Middle School": {
+    "description": "Multiply 1000 times",
+    "locked": true,
+    "points": 10
+  },
+  "High School": {
+    "description": "Divide 1000 times",
+    "locked": true,
+    "points": 10
   }
 }
