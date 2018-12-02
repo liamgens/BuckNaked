@@ -12,7 +12,6 @@ export const execute = ({ inst, args }, env) => {
   eventBus.$emit('gfxNOP')
 
   let expr = instructions[inst].expr
-
   // If the instruction has a destination
   if ('dest' in instructions[inst]) {
     let dest = eval(instructions[inst].dest)

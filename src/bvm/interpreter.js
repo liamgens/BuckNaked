@@ -5,18 +5,6 @@ import { execute, sysout } from './executor'
 import { Environment } from './environment.js'
 import { getType } from './types.js'
 
-// For while:
-// check condition, if true:
-// make new environment...
-// copy over all functions and variables
-// if false:
-// skip until end while has been reached
-// then,
-// run interpret
-// when reach 'end while'
-// pop environment
-// set 'i' to returnLine
-
 export const interpreter = (code, env, currentEnv = 0) => {
   let buildingFunction = false
   let functionName = ''
@@ -38,12 +26,13 @@ export const interpreter = (code, env, currentEnv = 0) => {
             }
             env[0].addFunction(functionName, fun)
           }
-        } else if (args[0] === 'call') {
+        } else if (args[0] === 'call' && !buildingFunction) {
           call(code, functionName, env, i, currentEnv, args)
-        } else if (args[0] === 'while' || args[0] === 'if') {
+        } else if ((args[0] === 'while' || args[0] === 'if') && !buildingFunction) {
+          console.log(env[currentEnv])
           i = conditional(code, env, i, currentEnv, args)
           currentEnv = currentEnv + 1
-        } else if (args[0] === 'end' || args[0] === 'else') {
+        } else if ((args[0] === 'end' || args[0] === 'else') && !buildingFunction) {
           i = elseAndEnd(code, env, i, currentEnv, args)
         } else {
           [buildingFunction, returnVal] = doExecutes(buildingFunction, code, functionName, env, i, currentEnv, args)
@@ -114,42 +103,6 @@ const doExecutes = (buildingFunction, code, functionName, env, i, currentEnv, ar
 }
 
 const conditional = (code, env, i, currentEnv, args) => {
-  // WHILE LOGIC:
-  // do execute/validate/syntax/parse logic
-  // syntax: check correct number of params
-  // validate: check correct type of params
-  // execute: return eval("args[0]")
-  // if true,
-  //    create new environment
-  //    set returnLine
-  //    copy env[n-2] to env[n-1]
-  // if false,
-  //    skip lines until 'end while' is reached
-  // END WHILE LOGIC:
-  // copy all values in current environment that were in the previous environment
-  // remove new environment
-  // set i to returnLine
-  //
-  // IF LOGIC:
-  // syntax: check correct number of params
-  // validate: check correct type of params
-  // execute: return eval("args[0]")
-  // if true,
-  //    create new environment
-  //    copy values from previous environment
-  // else,
-  //    skip to else
-  //    create new environment
-  //    copy values from previous environment
-  // if you come to an else:
-  // skip it
-
-  // OK TOTAL LOGIC:
-  // syntax, validate, execute as above.
-  // return a boolean which is, whether to go through loop or not
-  // ELSE:
-
-  // ADD LOGIC FOR ELSE and END and ADD TO MAIN FUNCTION
   let enterLoop = execute(validate(syntax(parse(code[i])), env[currentEnv]), env[currentEnv])
   if (enterLoop === 'true' || enterLoop === true) {
     // conditional evaluates to true
