@@ -141,5 +141,10 @@
     "arg_count": 0,
     "arg_types": [],
     "expr": "eventBus.$emit('audioBeep')"
+  },
+  "boop": {
+    "arg_count": 0,
+    "arg_types": [],
+    "expr": "eventBus.$emit('audioBoop')"
   }
 }
