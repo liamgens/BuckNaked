@@ -136,5 +136,10 @@
   "else": {
     "arg_count": 0,
     "arg_types": "any"
+  },
+  "beep": {
+    "arg_count": 0,
+    "arg_types": [],
+    "expr": "eventBus.$emit('audioBeep')"
   }
 }
