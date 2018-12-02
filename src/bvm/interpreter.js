@@ -29,7 +29,6 @@ export const interpreter = (code, env, currentEnv = 0) => {
         } else if (args[0] === 'call' && !buildingFunction) {
           call(code, functionName, env, i, currentEnv, args)
         } else if ((args[0] === 'while' || args[0] === 'if') && !buildingFunction) {
-          console.log(env[currentEnv])
           i = conditional(code, env, i, currentEnv, args)
           currentEnv = currentEnv + 1
         } else if ((args[0] === 'end' || args[0] === 'else') && !buildingFunction) {
@@ -123,17 +122,28 @@ export const enterNewBlock = (env, currentEnv) => {
 }
 
 const findEndOfBlock = (code, env, i, currentEnv, type) => {
+  let skipCount = 0
   for (let x = i + 1; x < code.length; ++x) {
     let argsInner = parse(code[x])
-    if (argsInner[0] === 'else') {
-      if (type === 'while') {
-        throw new Error('Incorrect end to \'while\' block')
+    if (argsInner[0] === 'else' && skipCount === 0) {
+      if (skipCount === 0) {
+        if (type === 'while') {
+          throw new Error('Incorrect end to \'while\' block')
+        } else {
+          currentEnv = enterNewBlock(env, currentEnv)
+          return x
+        }
       } else {
-        currentEnv = enterNewBlock(env, currentEnv)
-        return x
+        skipCount = skipCount - 1
       }
     } else if (argsInner[0] === 'end' || code[x] === 'end') {
-      return x
+      if (skipCount === 0) {
+        return x
+      } else {
+        skipCount = skipCount - 1
+      }
+    } else if (argsInner[0] === 'while' || argsInner[0] === 'if') {
+      skipCount = skipCount + 1
     }
   }
   throw new Error(`Incorrect end to '${type}' block`)
@@ -157,10 +167,12 @@ const elseAndEnd = (code, env, i, currentEnv, args) => {
 }
 
 export const copyChangedEnvironmentVariables = (env, currentEnv) => {
-  let current = env[currentEnv].scope
-  let last = env[currentEnv - 1].scope
-  for (var key in last) {
-    last[key] = current[key]
+  if (currentEnv > 0) {
+    let current = env[currentEnv].scope
+    let last = env[currentEnv - 1].scope
+    for (var key in last) {
+      last[key] = current[key]
+    }
+    env.pop()
   }
-  env.pop()
 }
