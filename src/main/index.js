@@ -27,7 +27,7 @@ function createWindow () {
     width: 1100,
     minHeight: 480,
     useContentSize: true,
-    minWidth: 1100,
+    minWidth: 1150,
     title: 'Buck Naked'
   })
 

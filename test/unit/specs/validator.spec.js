@@ -108,10 +108,17 @@ describe('validator.js', () => {
       inst: 'var',
       args: ['JebBushHasHighCholesterol', null]
     }
+    let instSet5 = {
+      inst: 'add',
+      args: ['x', 1, 'x']
+    }
+    let env = new Environment({ scope: { }, functions: { } })
+    env.addVariable('x', '7')
     validate(instSet1, {})
     validate(instSet2, {})
     validate(instSet3, {})
     validate(instSet4, {})
+    expect(validate(instSet5, env)).eql(instSet5)
   })
 
   it('should throw an error if an add instruction does not have a destination as its final argument', () => {

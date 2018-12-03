@@ -26,5 +26,7 @@ export default {
   height: 100%;
   width: 100%;
   padding: 5px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 16px;
 }
 </style>
