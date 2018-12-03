@@ -20,7 +20,8 @@
       <v-snackbar
         v-model="snackbar"
         :top="true"
-        :timeout="3000"
+        :timeout="5000"
+        :auto-height="true"
         >
           {{ achievementText }} 
         <v-btn
