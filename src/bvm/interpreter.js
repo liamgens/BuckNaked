@@ -5,12 +5,9 @@ import { execute, sysout } from './executor'
 import { Environment } from './environment.js'
 import { getType } from './types.js'
 
-<<<<<<< HEAD
 let ranCommands = []
 let errorHappened = false
 
-=======
->>>>>>> develop
 export const interpreter = (code, env, currentEnv = 0) => {
   let buildingFunction = false
   let functionName = ''
@@ -25,10 +22,15 @@ export const interpreter = (code, env, currentEnv = 0) => {
         let args = parse(code[i])
         if (args[0] === 'fn') {
           if (buildingFunction) {
-            throw new Error('A function cannot be declared inside of a function declaration')
+            throw new Error(
+              'A function cannot be declared inside of a function declaration'
+            )
           } else {
             buildingFunction = true
-            functionName = execute(validate(syntax(parse(code[i])), env[0]), env[0])
+            functionName = execute(
+              validate(syntax(parse(code[i])), env[0]),
+              env[0]
+            )
             let fun = {
               code: [],
               params: args.slice(2)
@@ -37,13 +39,27 @@ export const interpreter = (code, env, currentEnv = 0) => {
           }
         } else if (args[0] === 'call' && !buildingFunction) {
           call(code, functionName, env, i, currentEnv, args)
-        } else if ((args[0] === 'while' || args[0] === 'if') && !buildingFunction) {
+        } else if (
+          (args[0] === 'while' || args[0] === 'if') &&
+          !buildingFunction
+        ) {
           i = conditional(code, env, i, currentEnv, args)
           currentEnv = currentEnv + 1
-        } else if ((args[0] === 'end' || args[0] === 'else') && !buildingFunction) {
+        } else if (
+          (args[0] === 'end' || args[0] === 'else') &&
+          !buildingFunction
+        ) {
           i = elseAndEnd(code, env, i, currentEnv, args)
         } else {
-          [buildingFunction, returnVal] = doExecutes(buildingFunction, code, functionName, env, i, currentEnv, args)
+          ;[buildingFunction, returnVal] = doExecutes(
+            buildingFunction,
+            code,
+            functionName,
+            env,
+            i,
+            currentEnv,
+            args
+          )
         }
       } catch (error) {
         sysout(`Error on line ${i + 1}: ${error.message}`)
@@ -55,7 +71,9 @@ export const interpreter = (code, env, currentEnv = 0) => {
   if (buildingFunction) {
     ranCommands.pop()
     errorHappened = true
-    throw new Error('Error: End of file reached while still in function declaration')
+    throw new Error(
+      'Error: End of file reached while still in function declaration'
+    )
   }
   return returnVal
 }
@@ -80,14 +98,21 @@ const call = (code, functionName, env, i, currentEnv, args) => {
   env.push(new Environment({ scope: {}, functions: {} }))
   currentEnv = currentEnv + 1
   let currentFunction = env[0].getFunction(args[1])
-  let argsToSet = currentFunction.dest === undefined ? args.slice(2) : args.slice(2, args.length - 1)
-  let dest = currentFunction.dest === undefined ? undefined : args[args.length - 1]
+  let argsToSet =
+    currentFunction.dest === undefined
+      ? args.slice(2)
+      : args.slice(2, args.length - 1)
+  let dest =
+    currentFunction.dest === undefined ? undefined : args[args.length - 1]
   let paramsToSet = currentFunction.params
   if (argsToSet.length !== paramsToSet.length) {
     throw new Error(`Incorrect number of parameters for function ${args[1]}`)
   }
   for (let x = 0; x < argsToSet.length; x++) {
-    env[currentEnv].addVariable(paramsToSet[x], actualValueOf(argsToSet[x], env[currentEnv - 1]))
+    env[currentEnv].addVariable(
+      paramsToSet[x],
+      actualValueOf(argsToSet[x], env[currentEnv - 1])
+    )
   }
   let destVal = interpreter(currentFunction.code, env, currentEnv)
   currentEnv = currentEnv - 1
@@ -97,7 +122,15 @@ const call = (code, functionName, env, i, currentEnv, args) => {
   }
 }
 
-const doExecutes = (buildingFunction, code, functionName, env, i, currentEnv, args) => {
+const doExecutes = (
+  buildingFunction,
+  code,
+  functionName,
+  env,
+  i,
+  currentEnv,
+  args
+) => {
   if (buildingFunction) {
     if (args[0] === 'return') {
       if (args.length > 1) {
@@ -105,22 +138,36 @@ const doExecutes = (buildingFunction, code, functionName, env, i, currentEnv, ar
           throw new Error('a function can only return one value')
         } else {
           let actualVal = actualValueOf(args[1], env[currentEnv])
-          env[currentEnv].getFunction(functionName, env[currentEnv]).dest = actualVal
+          env[currentEnv].getFunction(
+            functionName,
+            env[currentEnv]
+          ).dest = actualVal
         }
       }
-      execute(validate(syntax(functionParse(code[i], functionName)), env[currentEnv]), env[currentEnv])
+      execute(
+        validate(syntax(functionParse(code[i], functionName)), env[currentEnv]),
+        env[currentEnv]
+      )
       return [false]
     } else {
-      execute(validate(syntax(functionParse(code[i], functionName)), env[currentEnv]), env[currentEnv])
+      execute(
+        validate(syntax(functionParse(code[i], functionName)), env[currentEnv]),
+        env[currentEnv]
+      )
       return [true]
     }
   } else {
     if (args[0] === 'return') {
       if (currentEnv === 0) {
-        throw new Error('\'return\' statement cannot be used outside of a function')
+        throw new Error(
+          "'return' statement cannot be used outside of a function"
+        )
       } else {
-        let actualVal = args[1] === undefined ? undefined : actualValueOf(args[1], env[currentEnv])
-        if (actualVal !== undefined && getType(actualVal) === 'name') throw new Error(`Variable ${actualVal} not defined`)
+        let actualVal =
+          args[1] === undefined
+            ? undefined
+            : actualValueOf(args[1], env[currentEnv])
+        if (actualVal !== undefined && getType(actualVal) === 'name') { throw new Error(`Variable ${actualVal} not defined`) }
         return [false, actualVal]
       }
     }
@@ -130,7 +177,10 @@ const doExecutes = (buildingFunction, code, functionName, env, i, currentEnv, ar
 }
 
 const conditional = (code, env, i, currentEnv, args) => {
-  let enterLoop = execute(validate(syntax(parse(code[i])), env[currentEnv]), env[currentEnv])
+  let enterLoop = execute(
+    validate(syntax(parse(code[i])), env[currentEnv]),
+    env[currentEnv]
+  )
   if (enterLoop === 'true' || enterLoop === true) {
     // conditional evaluates to true
     currentEnv = enterNewBlock(env, currentEnv)
@@ -156,7 +206,7 @@ const findEndOfBlock = (code, env, i, currentEnv, type) => {
     if (argsInner[0] === 'else' && skipCount === 0) {
       if (skipCount === 0) {
         if (type === 'while') {
-          throw new Error('Incorrect end to \'while\' block')
+          throw new Error("Incorrect end to 'while' block")
         } else {
           currentEnv = enterNewBlock(env, currentEnv)
           return x
@@ -181,7 +231,7 @@ const findEndOfBlock = (code, env, i, currentEnv, type) => {
 const elseAndEnd = (code, env, i, currentEnv, args) => {
   if (env[currentEnv].returnLine !== undefined) {
     if (args[0] === 'else') {
-      throw new Error('Incorrect end to \'while\' block')
+      throw new Error("Incorrect end to 'while' block")
     } else {
       ranCommands.push('end')
       i = env[currentEnv].returnLine - 1
