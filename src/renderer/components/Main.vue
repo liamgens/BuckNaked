@@ -22,7 +22,7 @@
         :top="true"
         :timeout="3000"
         >
-          {{ achievements.join(', ') + " unlocked!" }} 
+          {{ achievementText }} 
         <v-btn
           color="blue"
           flat
@@ -54,6 +54,15 @@
         this.achievements = achievements
         this.snackbar = true
       })
+    },
+    computed: {
+      achievementText: function () {
+        let text = 'Achievement'
+        if (this.achievements.length > 1) {
+          text += 's'
+        }
+        return text + ' ' + this.achievements.join(', ') + ' unlocked!'
+      }
     },
     name: 'buck-naked',
     components: {

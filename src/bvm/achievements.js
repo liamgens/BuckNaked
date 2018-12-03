@@ -11,12 +11,22 @@ export const initAchievements = () => {
 export const updateAchievements = (instructions, isError) => {
   if (!isError) {
     let achievementsJustUnlocked = []
+    let instructionsUsed = []
+
     instructions.forEach(element => {
       let inst = element.split(' ')[0]
       countSwears(element)
       updateCount(inst)
       checkAchievement(element, achievementsJustUnlocked)
+      instructionsUsed.push(inst)
     })
+
+    instructionsUsed = new Set(instructionsUsed)
+
+    if (instructionsUsed.size >= 5) {
+      unlockAchievement('Buck Naked Explorer', achievementsJustUnlocked)
+    }
+
     if (achievementsJustUnlocked.length > 0) {
       EventBus.$emit('unlockAchievement', achievementsJustUnlocked)
     }
@@ -67,6 +77,8 @@ const unlockAchievement = (achievement, achievementsJustUnlocked) => {
 }
 
 const checkAchievement = (inst, achievementsJustUnlocked) => {
+  unlockAchievement('Smash', achievementsJustUnlocked)
+
   if (inst.includes('add 2 2')) {
     unlockAchievement('quickMAFS', achievementsJustUnlocked)
   }

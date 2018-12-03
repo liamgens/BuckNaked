@@ -78,7 +78,6 @@ export default {
       let list = []
       let json = JSON.parse(localStorage.getItem('achievements'))
       for (const [key, value] of Object.entries(json)) {
-        console.log(key, value)
         list.push({ locked: value.locked, title: key, description: value.description, points: value.points })
       }
       return list
