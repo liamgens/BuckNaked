@@ -28,5 +28,20 @@
     "description": "Divide 1000 times",
     "locked": true,
     "points": 10
+  },
+  "Smash": {
+    "description": "You hit that motherfuckin' run button",
+    "locked": true,
+    "points": 5
+  },
+  "You kiss your mother with that mouth?": {
+    "description": "Use 3 swear words",
+    "locked": true,
+    "points": 30
+  },
+  "Buck Naked Explorer": {
+    "description": "Used 5 different commands",
+    "locked": true,
+    "points": 15
   }
 }

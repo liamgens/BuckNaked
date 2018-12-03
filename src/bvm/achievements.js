@@ -13,6 +13,7 @@ export const updateAchievements = (instructions, isError) => {
     let achievementsJustUnlocked = []
     instructions.forEach(element => {
       let inst = element.split(' ')[0]
+      countSwears(element)
       updateCount(inst)
       checkAchievement(element, achievementsJustUnlocked)
     })
@@ -21,6 +22,25 @@ export const updateAchievements = (instructions, isError) => {
     }
   } else {
     console.log('Error encountered')
+  }
+}
+
+const countSwears = inst => {
+  let swears = [
+    'fuck',
+    'shit',
+    'dick',
+    'ass',
+    'whore',
+    'pussy',
+    'bitch',
+    'cunt',
+    'tits'
+  ]
+  let instAsLowercase = inst.toLowerCase()
+
+  if (swears.some(el => instAsLowercase.includes(el))) {
+    updateCount('swears')
   }
 }
 
@@ -64,5 +84,11 @@ const checkAchievement = (inst, achievementsJustUnlocked) => {
   }
   if (checkCount('div') >= 1000) {
     unlockAchievement('High School', achievementsJustUnlocked)
+  }
+  if (checkCount('swears') >= 3) {
+    unlockAchievement(
+      'You kiss your mother with that mouth?',
+      achievementsJustUnlocked
+    )
   }
 }
