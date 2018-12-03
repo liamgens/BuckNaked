@@ -80,6 +80,13 @@ export default {
       for (const [key, value] of Object.entries(json)) {
         list.push({ locked: value.locked, title: key, description: value.description, points: value.points })
       }
+
+      list.sort((ach1, ach2) => {
+        if (!ach1.locked && ach2.locked) return -1
+        if (ach1.locked && !ach2.locked) return 1
+        if (ach1.title > ach2.title) return 1
+        if (ach1.title < ach2.title) return -1
+      })
       return list
     }
   }

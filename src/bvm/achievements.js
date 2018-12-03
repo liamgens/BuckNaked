@@ -82,19 +82,19 @@ const checkAchievement = (inst, achievementsJustUnlocked) => {
   if (inst.includes('add 2 2')) {
     unlockAchievement('quickMAFS', achievementsJustUnlocked)
   }
-  if (checkCount('var') >= 1000) {
+  if (checkCount('var') >= 100) {
     unlockAchievement('Variable King', achievementsJustUnlocked)
   }
-  if (checkCount('add') >= 1000) {
+  if (checkCount('add') >= 100) {
     unlockAchievement('Preschool', achievementsJustUnlocked)
   }
-  if (checkCount('sub') >= 1000) {
+  if (checkCount('sub') >= 100) {
     unlockAchievement('Elementary School', achievementsJustUnlocked)
   }
-  if (checkCount('mul') >= 1000) {
+  if (checkCount('mul') >= 100) {
     unlockAchievement('Middle School', achievementsJustUnlocked)
   }
-  if (checkCount('div') >= 1000) {
+  if (checkCount('div') >= 100) {
     unlockAchievement('High School', achievementsJustUnlocked)
   }
   if (checkCount('swears') >= 3) {
