@@ -4,19 +4,13 @@
       <v-btn @click="run" color="success" slot="activator">
         <v-icon light>play_circle_filled</v-icon>
       </v-btn>
-      <span>Execute Code</span>
-    </v-tooltip>
-    <v-tooltip bottom>
-      <v-btn @click="stop" color="error" slot="activator" :disabled="!state.running">
-        <v-icon light>stop</v-icon>
-      </v-btn>
-      <span>Stop Execution</span>
+      <span>Run Code</span>
     </v-tooltip>
     <v-tooltip bottom>
       <v-btn @click="clear" color="warning" slot="activator">
         <v-icon light>clear</v-icon>
       </v-btn>
-      <span>Clear Console Output</span>
+      <span>Clear Console</span>
     </v-tooltip>
 
     <v-tooltip bottom>
@@ -29,19 +23,28 @@
       <v-btn @click="save" color="warning" slot="activator">
         <v-icon light>save</v-icon>
       </v-btn>
-      <span>Saves Editor Content</span>
+      <span>Save File</span>
     </v-tooltip>
 
+    <router-link id="achievements" to="/achievements">
+      <v-tooltip bottom>
+        <v-btn color="error" slot="activator">
+          <v-icon light>ballot</v-icon>
+        </v-btn>
+        <span>Achievements</span>
+      </v-tooltip>
+    </router-link>
+
     <input type="file" id="fileToLoad" @change="load" hidden>
-  
   </div>
 </template>
 
 <script>
 import { saveToFile } from '../../bvm/utils.js'
-import { interpreter } from '../../bvm/interpreter'
+import { interpreter, getRanCommands } from '../../bvm/interpreter'
 import { Environment } from '../../bvm/environment'
 import { EventBus } from '../main.js'
+import { updateAchievements } from '../../bvm/achievements'
 
 export default {
   data: function () {
@@ -58,8 +61,13 @@ export default {
       this.$store.commit('editFileContents', this.$store.getters.code)
       this.state.running = true
       try {
-        interpreter(this.$store.getters.codeAsArray, [new Environment({scope: {}, functions: {}})])
-      } catch (error) { }
+        interpreter(this.$store.getters.codeAsArray, [
+          new Environment({ scope: {}, functions: {} })
+        ])
+        updateAchievements(getRanCommands(), false)
+      } catch (error) {
+        updateAchievements(getRanCommands(), true)
+      }
 
       this.state.running = false
     },
@@ -90,4 +98,7 @@ export default {
 </script>
 
 <style>
+#achievements {
+  color: rgba(0, 0, 0, 0);
+}
 </style>

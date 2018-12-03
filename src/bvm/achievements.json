@@ -1,0 +1,52 @@
+{
+  "quickMAFS": {
+    "description": "2 + 2 is 4",
+    "locked": true,
+    "points": 20
+  },
+  "Variable King": {
+    "description": "Declared 100 variables",
+    "locked": true,
+    "points": 20
+  },
+  "Preschool": {
+    "description": "Add 100 times",
+    "locked": true,
+    "points": 10
+  },
+  "Elementary School": {
+    "description": "Subtract 100 times",
+    "locked": true,
+    "points": 10
+  },
+  "Middle School": {
+    "description": "Multiply 100 times",
+    "locked": true,
+    "points": 10
+  },
+  "High School": {
+    "description": "Divide 100 times",
+    "locked": true,
+    "points": 10
+  },
+  "Smash": {
+    "description": "You smashed that run button for the first time",
+    "locked": true,
+    "points": 5
+  },
+  "You kiss your mother with that mouth?": {
+    "description": "Use 3 swear words",
+    "locked": true,
+    "points": 30
+  },
+  "Buck Naked Explorer": {
+    "description": "Used 5 different commands in one program",
+    "locked": true,
+    "points": 15
+  },
+  "The Plot Thickens": {
+    "description": "Plot 100 points",
+    "locked": true,
+    "points": 10
+  }
+}

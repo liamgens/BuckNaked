@@ -5,6 +5,7 @@ import 'vuetify/dist/vuetify.css'
 import App from './App'
 import router from './router'
 import store from './store'
+import { initAchievements } from '../bvm/achievements'
 import AudioPlugin from '../plugins/audio-plugin.js'
 
 Vue.use(Vuetify)
@@ -18,6 +19,7 @@ Vue.config.productionTip = false
 // And to subscribe to an event:
 // EventBus.$on('myEvent', function (eventArg) { })
 export const EventBus = new Vue()
+initAchievements()
 
 Vue.use(AudioPlugin)
 
