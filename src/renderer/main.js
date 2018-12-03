@@ -6,6 +6,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import { initAchievements } from '../bvm/achievements'
+import AudioPlugin from '../plugins/audio-plugin.js'
 
 Vue.use(Vuetify)
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
@@ -19,6 +20,8 @@ Vue.config.productionTip = false
 // EventBus.$on('myEvent', function (eventArg) { })
 export const EventBus = new Vue()
 initAchievements()
+
+Vue.use(AudioPlugin)
 
 /* eslint-disable no-new */
 new Vue({
