@@ -203,11 +203,12 @@ const findEndOfBlock = (code, env, i, currentEnv, type) => {
   let skipCount = 0
   for (let x = i + 1; x < code.length; ++x) {
     let argsInner = parse(code[x])
-    if (argsInner[0] === 'else' && skipCount === 0) {
+    if (argsInner[0] === 'else') {
       if (skipCount === 0) {
         if (type === 'while') {
           throw new Error("Incorrect end to 'while' block")
         } else {
+          ranCommands.push('else')
           currentEnv = enterNewBlock(env, currentEnv)
           return x
         }
