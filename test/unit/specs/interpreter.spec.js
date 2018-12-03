@@ -118,9 +118,47 @@ describe('interpreter.js', () => {
     )
   })
   // //////////////////////////////////////////////////////////////////////
+  // CONDITIONALS TESTS
+  // //////////////////////////////////////////////////////////////////////
+  it('test geq good true', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x 1', 'var y 3', 'geq y x y']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('y')).to.eql(true)
+  })
+  it('test geq good false', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x 1', 'var y 3', 'geq x y y']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('y')).to.eql(false)
+  })
+  it('test leq good false', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x 1', 'var y 3', 'leq y x y']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('y')).to.eql(false)
+  })
+  it('test leq good true', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x 1', 'var y 1', 'leq y x y']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('y')).to.eql(true)
+  })
+  it('test equals good false', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x 1', 'var y 3', 'equals y x y']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('y')).to.eql(false)
+  })
+  it('test equals good true', () => {
+    let envStack = [new Environment({ scope: {}, functions: {} })]
+    let code = ['var x 1', 'var y 1', 'equals y x y']
+    interpreter(code, envStack)
+    expect(envStack[0].getVariable('y')).to.eql(true)
+  })
+  // //////////////////////////////////////////////////////////////////////
   // BOOLEAN ALGEBRA TESTS
   // //////////////////////////////////////////////////////////////////////
-
   it('test and good', () => {
     let envStack = [new Environment({ scope: {}, functions: {} })]
     let code = ['var x true', 'var y false', 'and y x y']
