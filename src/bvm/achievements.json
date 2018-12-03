@@ -43,5 +43,10 @@
     "description": "Used 5 different commands in one program",
     "locked": true,
     "points": 15
+  },
+  "The Plot Thickens": {
+    "description": "Plot 100 points",
+    "locked": true,
+    "points": 10
   }
 }

@@ -103,4 +103,7 @@ const checkAchievement = (inst, achievementsJustUnlocked) => {
       achievementsJustUnlocked
     )
   }
+  if (checkCount('plot') >= 100) {
+    unlockAchievement('The Plot Thickens', achievementsJustUnlocked)
+  }
 }
