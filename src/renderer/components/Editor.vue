@@ -51,6 +51,7 @@ export default {
   white-space: pre;
   overflow-x: scroll;
   font-family: "Courier New", Courier, monospace;
+  font-size: 16px;
 }
 
 #editorPanel {
@@ -68,5 +69,6 @@ export default {
   display: block;
   width: 30px;
   overflow: hidden;
+  font-size: 16px;
 }
 </style>
