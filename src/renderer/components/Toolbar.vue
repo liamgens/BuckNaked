@@ -4,19 +4,13 @@
       <v-btn @click="run" color="success" slot="activator">
         <v-icon light>play_circle_filled</v-icon>
       </v-btn>
-      <span>Execute Code</span>
-    </v-tooltip>
-    <v-tooltip bottom>
-      <v-btn @click="stop" color="error" slot="activator" :disabled="!state.running">
-        <v-icon light>stop</v-icon>
-      </v-btn>
-      <span>Stop Execution</span>
+      <span>Run Code</span>
     </v-tooltip>
     <v-tooltip bottom>
       <v-btn @click="clear" color="warning" slot="activator">
         <v-icon light>clear</v-icon>
       </v-btn>
-      <span>Clear Console Output</span>
+      <span>Clear Console</span>
     </v-tooltip>
 
     <v-tooltip bottom>
@@ -29,7 +23,7 @@
       <v-btn @click="save" color="warning" slot="activator">
         <v-icon light>save</v-icon>
       </v-btn>
-      <span>Saves Editor Content</span>
+      <span>Save File</span>
     </v-tooltip>
 
     <router-link id="achievements" to="/achievements">
