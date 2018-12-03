@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="editorPanel">
-      <textarea id="editor" v-model="codeDisplay" contenteditable></textarea>
+      <textarea id="editor" v-model="codeDisplay" contenteditable onkeydown="if(event.keyCode===9){var v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0, s)+'    '+v.substring(e);this.selectionStart=this.selectionEnd=s+4;return false;}"></textarea>
     </div>
     <div id="lineNumberPanel">
       <LineNumbers style="text-align: right;"></LineNumbers>
